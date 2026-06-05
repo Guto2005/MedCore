@@ -2,10 +2,240 @@
 
 {% block content %}
 
-<h1>Listagem de Pacientes</h1>
+<style>
+    .header-lista {
 
-<p>
-    Aqui aparecerão os pacientes cadastrados.
-</p>
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 25px;
+    }
+
+    .acoes-topo {
+
+        display: flex;
+
+        gap: 10px;
+
+        align-items: center;
+    }
+
+    .busca {
+
+        width: 300px;
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        border: 1px solid #333;
+
+        background: #252525;
+
+        color: white;
+    }
+
+    .novo-paciente-btn {
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        font-weight: bold;
+
+        transition: .2s;
+    }
+
+    .novo-paciente-btn:hover {
+
+        opacity: .9;
+    }
+
+    .cards {
+
+        display: grid;
+
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+
+        gap: 20px;
+    }
+
+    .paciente-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 12px;
+
+        padding: 20px;
+    }
+
+    .paciente-card h3 {
+
+        margin-bottom: 12px;
+    }
+
+    .info {
+
+        color: #bbb;
+
+        margin-bottom: 6px;
+    }
+
+    .btn-pesquisar {
+
+        background: #4f8cff;
+
+        color: white;
+
+        border: none;
+
+        padding: 10px 14px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+    .btn-limpar {
+
+        background: #444;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        transition: .2s;
+    }
+
+    .btn-limpar:hover {
+
+        background: #555;
+    }
+
+    .btn-ficha {
+
+        display: inline-block;
+
+        margin-top: 15px;
+
+        background: #2f2f2f;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 14px;
+
+        border-radius: 8px;
+
+        transition: .2s;
+    }
+
+    .btn-ficha:hover {
+
+        background: #3c3c3c;
+    }
+
+    .sem-resultados {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 12px;
+
+        padding: 20px;
+    }
+</style>
+
+<div class="header-lista">
+
+    <h1>
+        Pacientes
+    </h1>
+
+    <div class="acoes-topo">
+
+        <form method="GET" style="display:flex; gap:10px;">
+
+            <input type="text" name="busca" value="{{ busca }}" placeholder="Pesquisar por nome ou CPF..."
+                class="busca">
+
+            <button type="submit" class="btn-pesquisar">
+                🔍
+            </button>
+
+        </form>
+
+        <a href="{% url 'listar_pacientes' %}" class="btn-limpar">
+            Limpar
+        </a>
+
+        <a href="{% url 'cadastrar_paciente' %}" class="novo-paciente-btn">
+            + Novo Paciente
+        </a>
+
+    </div>
+
+</div>
+
+{% if pacientes %}
+
+<div class="cards">
+
+    {% for paciente in pacientes %}
+
+    <div class="paciente-card">
+
+        <h3>
+            {{ paciente.nome }}
+        </h3>
+
+        <div class="info">
+            CPF: {{ paciente.cpf }}
+        </div>
+
+        <div class="info">
+            Telefone: {{ paciente.telefone }}
+        </div>
+
+        <div class="info">
+            Convênio: {{ paciente.convenio|default:"Não informado" }}
+        </div>
+
+        <a href="{% url 'detalhes_paciente' paciente.id %}" class="btn-ficha">
+            Ver Ficha
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="sem-resultados">
+
+    Nenhum paciente encontrado.
+
+</div>
+
+{% endif %}
 
 {% endblock %}

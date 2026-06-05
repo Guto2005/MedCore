@@ -1,0 +1,193 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<style>
+
+    .ficha-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 25px;
+
+        max-width: 1000px;
+    }
+
+    .titulo {
+
+        margin-bottom: 25px;
+    }
+
+    .grid {
+
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+    .campo {
+
+        background: #252525;
+
+        padding: 15px;
+
+        border-radius: 10px;
+    }
+
+    .campo strong {
+
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #9dbfff;
+    }
+
+    .campo-full {
+
+        grid-column: 1 / -1;
+    }
+
+    .btn-voltar {
+
+        display: inline-block;
+
+        margin-top: 25px;
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+    }
+
+</style>
+
+<div class="ficha-card">
+
+    <h1 class="titulo">
+
+        Ficha do Paciente
+
+    </h1>
+
+    <div class="grid">
+
+        <div class="campo">
+
+            <strong>Nome</strong>
+
+            {{ paciente.nome }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>CPF</strong>
+
+            {{ paciente.cpf }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Data de Nascimento</strong>
+
+            {{ paciente.data_nascimento }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Sexo</strong>
+
+            {{ paciente.get_sexo_display }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Telefone</strong>
+
+            {{ paciente.telefone }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Telefone de Emergência</strong>
+
+            {{ paciente.telefone_emergencia|default:"Não informado" }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Email</strong>
+
+            {{ paciente.email|default:"Não informado" }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Convênio</strong>
+
+            {{ paciente.convenio|default:"Não informado" }}
+
+        </div>
+
+        <div class="campo campo-full">
+
+            <strong>Alergias</strong>
+
+            {{ paciente.alergias|default:"Nenhuma informação cadastrada." }}
+
+        </div>
+
+        <div class="campo campo-full">
+
+            <strong>Doenças Genéticas</strong>
+
+            {{ paciente.doencas_geneticas|default:"Nenhuma informação cadastrada." }}
+
+        </div>
+
+        <div class="campo campo-full">
+
+            <strong>Observações</strong>
+
+            {{ paciente.observacoes|default:"Nenhuma observação cadastrada." }}
+
+        </div>
+
+        <div class="campo campo-full">
+
+            <strong>Data de Cadastro</strong>
+
+            {{ paciente.data_cadastro }}
+
+        </div>
+
+    </div>
+
+    <a
+        href="{% url 'listar_pacientes' %}"
+        class="btn-voltar"
+    >
+        ← Voltar para Pacientes
+    </a>
+
+</div>
+
+{% endblock %}
