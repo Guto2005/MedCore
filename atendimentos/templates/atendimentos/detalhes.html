@@ -1,0 +1,113 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<style>
+
+    .ficha {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 25px;
+
+        max-width: 1000px;
+    }
+
+    .campo {
+
+        margin-bottom: 20px;
+    }
+
+    .campo strong {
+
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: #9dbfff;
+    }
+
+    .btn-voltar {
+
+        display: inline-block;
+
+        margin-top: 15px;
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+    }
+
+</style>
+
+<div class="ficha">
+
+    <h1>
+        Atendimento
+    </h1>
+
+    <div class="campo">
+        <strong>Paciente</strong>
+        {{ atendimento.paciente.nome }}
+    </div>
+
+    <div class="campo">
+        <strong>Médico</strong>
+        {{ atendimento.medico.usuario.nome }}
+    </div>
+
+    <div class="campo">
+        <strong>Status</strong>
+        {{ atendimento.get_status_display }}
+    </div>
+
+    <div class="campo">
+        <strong>Queixa Principal</strong>
+        {{ atendimento.queixa_principal }}
+    </div>
+
+    <div class="campo">
+        <strong>Diagnóstico</strong>
+        {{ atendimento.diagnostico }}
+    </div>
+
+    <div class="campo">
+        <strong>Tratamento</strong>
+        {{ atendimento.tratamento }}
+    </div>
+
+    <div class="campo">
+        <strong>Observações</strong>
+        {{ atendimento.observacoes|default:"Nenhuma observação." }}
+    </div>
+
+    <div class="campo">
+        <strong>Retorno Recomendado</strong>
+        {{ atendimento.retorno_recomendado|date:"d/m/Y" }}
+    </div>
+
+    <div class="campo">
+        <strong>Data do Atendimento</strong>
+        {{ atendimento.data_atendimento|date:"d/m/Y H:i" }}
+    </div>
+
+    <a
+        href="{% url 'listar_atendimentos' %}"
+        class="btn-voltar"
+    >
+        ← Voltar para Atendimentos
+    </a>
+
+</div>
+
+{% endblock %}

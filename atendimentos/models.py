@@ -4,6 +4,13 @@ from medicos.models import Medico
 
 
 class Atendimento(models.Model):
+
+    STATUS_CHOICES = [
+        ('ABERTO', 'Aberto'),
+        ('FINALIZADO', 'Finalizado'),
+        ('CANCELADO', 'Cancelado'),
+    ]
+
     paciente = models.ForeignKey(
         Paciente,
         on_delete=models.CASCADE
@@ -33,5 +40,15 @@ class Atendimento(models.Model):
         blank=True
     )
 
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='ABERTO'
+    )
+
     def __str__(self):
-        return f"{self.paciente.nome} - {self.data_atendimento}"
+
+        return (
+            f"{self.paciente.nome} - "
+            f"{self.data_atendimento:%d/%m/%Y}"
+        )

@@ -2,10 +2,202 @@
 
 {% block content %}
 
-<h1>Listagem de Atendimentos</h1>
+<style>
 
-<p>
-    Aqui aparecerão os atendimentos cadastrados.
-</p>
+    .header-lista {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 25px;
+    }
+
+    .acoes-topo {
+
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .busca {
+
+        width: 300px;
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        border: 1px solid #333;
+
+        background: #252525;
+
+        color: white;
+    }
+
+    .btn-pesquisar,
+    .novo-btn {
+
+        background: #4f8cff;
+
+        color: white;
+
+        border: none;
+
+        text-decoration: none;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+    .btn-limpar {
+
+        background: #444;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+    }
+
+    .cards {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fill, minmax(350px, 1fr));
+
+        gap: 20px;
+    }
+
+    .card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 12px;
+
+        padding: 20px;
+    }
+
+    .info {
+
+        color: #bbb;
+
+        margin-bottom: 8px;
+    }
+
+    .btn-detalhes {
+
+        display: inline-block;
+
+        margin-top: 15px;
+
+        background: #2f2f2f;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 14px;
+
+        border-radius: 8px;
+    }
+
+</style>
+
+<div class="header-lista">
+
+    <h1>Atendimentos</h1>
+
+    <div class="acoes-topo">
+
+        <form method="GET" style="display:flex; gap:10px;">
+
+            <input
+                type="text"
+                name="busca"
+                value="{{ busca }}"
+                placeholder="Paciente ou Médico..."
+                class="busca"
+            >
+
+            <button
+                type="submit"
+                class="btn-pesquisar"
+            >
+                🔍
+            </button>
+
+        </form>
+
+        <a
+            href="{% url 'listar_atendimentos' %}"
+            class="btn-limpar"
+        >
+            Limpar
+        </a>
+
+        <a
+            href="{% url 'novo_atendimento' %}"
+            class="novo-btn"
+        >
+            + Novo Atendimento
+        </a>
+
+    </div>
+
+</div>
+
+<div class="cards">
+
+{% for atendimento in atendimentos %}
+
+    <div class="card">
+
+        <h3>
+            {{ atendimento.paciente.nome }}
+        </h3>
+
+        <div class="info">
+            Médico:
+            {{ atendimento.medico.usuario.nome }}
+        </div>
+
+        <div class="info">
+            Status:
+            {{ atendimento.get_status_display }}
+        </div>
+
+        <div class="info">
+            Data:
+            {{ atendimento.data_atendimento|date:"d/m/Y H:i" }}
+        </div>
+
+        <a
+            href="{% url 'detalhes_atendimento' atendimento.id %}"
+            class="btn-detalhes"
+        >
+            Ver Atendimento
+        </a>
+
+    </div>
+
+{% empty %}
+
+    <p>
+        Nenhum atendimento encontrado.
+    </p>
+
+{% endfor %}
+
+</div>
 
 {% endblock %}

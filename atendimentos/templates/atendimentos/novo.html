@@ -2,10 +2,166 @@
 
 {% block content %}
 
-<h1>Novo Atendimento</h1>
+<style>
 
-<p>
-    Formulário de atendimento.
-</p>
+    .form-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 25px;
+
+        max-width: 1000px;
+    }
+
+    .form-grid {
+
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+    .form-group {
+
+        display: flex;
+
+        flex-direction: column;
+    }
+
+    .form-group-full {
+
+        grid-column: 1 / -1;
+    }
+
+    label {
+
+        margin-bottom: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+
+        background: #252525;
+
+        border: 1px solid #333;
+
+        border-radius: 8px;
+
+        padding: 12px;
+
+        color: white;
+    }
+
+    .acoes-formulario {
+
+        margin-top: 25px;
+
+        display: flex;
+
+        gap: 10px;
+    }
+
+    .btn-salvar {
+
+        background: #4f8cff;
+
+        color: white;
+
+        border: none;
+
+        padding: 12px 20px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+</style>
+
+<div class="form-card">
+
+    <h1>
+        Novo Atendimento
+    </h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Paciente</label>
+                {{ form.paciente }}
+            </div>
+
+            <div class="form-group">
+                <label>Médico</label>
+                {{ form.medico }}
+            </div>
+
+            <div class="form-group form-group-full">
+                <label>Queixa Principal</label>
+                {{ form.queixa_principal }}
+            </div>
+
+            <div class="form-group form-group-full">
+                <label>Diagnóstico</label>
+                {{ form.diagnostico }}
+            </div>
+
+            <div class="form-group form-group-full">
+                <label>Tratamento</label>
+                {{ form.tratamento }}
+            </div>
+
+            <div class="form-group form-group-full">
+                <label>Observações</label>
+                {{ form.observacoes }}
+            </div>
+
+            <div class="form-group">
+                <label>Retorno Recomendado</label>
+                {{ form.retorno_recomendado }}
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                {{ form.status }}
+            </div>
+
+        </div>
+
+        <div class="acoes-formulario">
+
+            <button
+                type="submit"
+                name="acao"
+                value="salvar"
+                class="btn-salvar"
+            >
+                Salvar
+            </button>
+
+            <button
+                type="submit"
+                name="acao"
+                value="novo"
+                class="btn-salvar"
+            >
+                Salvar e Adicionar Outro
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
 
 {% endblock %}
