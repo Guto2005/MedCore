@@ -1,0 +1,145 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<style>
+
+    .ficha-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 25px;
+
+        max-width: 1000px;
+    }
+
+    .titulo {
+
+        margin-bottom: 25px;
+    }
+
+    .grid {
+
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 20px;
+    }
+
+    .campo {
+
+        background: #252525;
+
+        padding: 15px;
+
+        border-radius: 10px;
+    }
+
+    .campo strong {
+
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #9dbfff;
+    }
+
+    .campo-full {
+
+        grid-column: 1 / -1;
+    }
+
+    .btn-voltar {
+
+        display: inline-block;
+
+        margin-top: 25px;
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+    }
+
+</style>
+
+<div class="ficha-card">
+
+    <h1 class="titulo">
+
+        Perfil do Médico
+
+    </h1>
+
+    <div class="grid">
+
+        <div class="campo">
+
+            <strong>Nome</strong>
+
+            {{ medico.usuario.nome }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>CRM</strong>
+
+            {{ medico.crm }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Especialidade</strong>
+
+            {{ medico.especialidade }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Telefone</strong>
+
+            {{ medico.telefone }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Email</strong>
+
+            {{ medico.usuario.email }}
+
+        </div>
+
+        <div class="campo">
+
+            <strong>Tipo de Usuário</strong>
+
+            {{ medico.usuario.get_tipo_usuario_display }}
+
+        </div>
+
+    </div>
+
+    <a
+        href="{% url 'listar_medicos' %}"
+        class="btn-voltar"
+    >
+        ← Voltar para Médicos
+    </a>
+
+</div>
+
+{% endblock %}

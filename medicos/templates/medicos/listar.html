@@ -2,10 +2,248 @@
 
 {% block content %}
 
-<h1>Listagem de Médicos</h1>
+<style>
+    .header-lista {
 
-<p>
-    Aqui aparecerão os médicos cadastrados.
-</p>
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        margin-bottom: 25px;
+    }
+
+    .acoes-topo {
+
+        display: flex;
+
+        gap: 10px;
+
+        align-items: center;
+    }
+
+    .busca {
+
+        width: 300px;
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        border: 1px solid #333;
+
+        background: #252525;
+
+        color: white;
+    }
+
+    .novo-medico-btn {
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        font-weight: bold;
+
+        transition: .2s;
+    }
+
+    .novo-medico-btn:hover {
+
+        opacity: .9;
+    }
+
+    .cards {
+
+        display: grid;
+
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+
+        gap: 20px;
+    }
+
+    .medico-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 12px;
+
+        padding: 20px;
+    }
+
+    .medico-card h3 {
+
+        margin-bottom: 12px;
+    }
+
+    .info {
+
+        color: #bbb;
+
+        margin-bottom: 6px;
+    }
+
+    .btn-pesquisar {
+
+        background: #4f8cff;
+
+        color: white;
+
+        border: none;
+
+        padding: 10px 14px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+    .btn-limpar {
+
+        background: #444;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 15px;
+
+        border-radius: 8px;
+
+        transition: .2s;
+    }
+
+    .btn-limpar:hover {
+
+        background: #555;
+    }
+
+    .btn-perfil {
+
+        display: inline-block;
+
+        margin-top: 15px;
+
+        background: #2f2f2f;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 14px;
+
+        border-radius: 8px;
+
+        transition: .2s;
+    }
+
+    .btn-perfil:hover {
+
+        background: #3c3c3c;
+    }
+
+    .sem-resultados {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 12px;
+
+        padding: 20px;
+    }
+</style>
+
+<div class="header-lista">
+
+    <h1>
+        Médicos
+    </h1>
+
+    <div class="acoes-topo">
+
+        <form method="GET" style="display:flex; gap:10px;">
+
+            <input
+                type="text"
+                name="busca"
+                value="{{ busca }}"
+                placeholder="Pesquisar por nome, CRM ou especialidade..."
+                class="busca"
+            >
+
+            <button type="submit" class="btn-pesquisar">
+                🔍
+            </button>
+
+        </form>
+
+        <a href="{% url 'listar_medicos' %}" class="btn-limpar">
+            Limpar
+        </a>
+
+        <a href="{% url 'cadastrar_medico' %}" class="novo-medico-btn">
+            + Novo Médico
+        </a>
+
+    </div>
+
+</div>
+
+{% if medicos %}
+
+<div class="cards">
+
+    {% for medico in medicos %}
+
+    <div class="medico-card">
+
+        <h3>
+            {{ medico.usuario.nome }}
+        </h3>
+
+        <div class="info">
+            CRM: {{ medico.crm }}
+        </div>
+
+        <div class="info">
+            Especialidade: {{ medico.especialidade }}
+        </div>
+
+        <div class="info">
+            Telefone: {{ medico.telefone }}
+        </div>
+
+        <a
+            href="{% url 'detalhes_medico' medico.id %}"
+            class="btn-perfil"
+        >
+            Ver Perfil
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="sem-resultados">
+
+    Nenhum médico encontrado.
+
+</div>
+
+{% endif %}
 
 {% endblock %}
