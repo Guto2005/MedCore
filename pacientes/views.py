@@ -1,3 +1,4 @@
+from atendimentos.models import Atendimento
 from django.shortcuts import (
     render,
     redirect,
@@ -77,10 +78,27 @@ def detalhes_paciente(request, paciente_id):
         id=paciente_id
     )
 
+    historico = Atendimento.objects.filter(
+        paciente=paciente
+    ).select_related(
+        'medico',
+        'medico__usuario'
+    ).order_by(
+        '-data_atendimento'
+    )
+
+    ultimo_atendimento = historico.first()
+
     return render(
         request,
         'pacientes/detalhes.html',
         {
-            'paciente': paciente
+            'paciente': paciente,
+
+            'historico': historico,
+
+            'ultimo_atendimento': ultimo_atendimento,
+
+            'total_atendimentos': historico.count()
         }
     )

@@ -4,6 +4,45 @@
 
 <style>
 
+    .tabs {
+
+        display: flex;
+
+        gap: 10px;
+
+        margin-bottom: 20px;
+    }
+
+    .tab-btn {
+
+        background: #252525;
+
+        color: #fff;
+
+        border: 1px solid #333;
+
+        padding: 10px 18px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+    .tab-btn.active {
+
+        background: #4f8cff;
+    }
+
+    .tab-content {
+
+        display: none;
+    }
+
+    .tab-content.active {
+
+        display: block;
+    }
+
     .ficha-card {
 
         background: #1d1d1d;
@@ -20,6 +59,44 @@
     .titulo {
 
         margin-bottom: 25px;
+    }
+
+    .resumo-clinico {
+
+        display: flex;
+
+        gap: 20px;
+
+        margin-bottom: 25px;
+
+        flex-wrap: wrap;
+    }
+
+    .resumo-item {
+
+        flex: 1;
+
+        min-width: 180px;
+
+        background: #252525;
+
+        padding: 15px;
+
+        border-radius: 10px;
+    }
+
+    .resumo-item span {
+
+        display: block;
+
+        color: #999;
+
+        margin-bottom: 8px;
+    }
+
+    .resumo-item strong {
+
+        font-size: 22px;
     }
 
     .grid {
@@ -71,123 +148,292 @@
         border-radius: 8px;
     }
 
+    .historico-card {
+
+        background: #252525;
+
+        border-radius: 10px;
+
+        padding: 18px;
+
+        margin-bottom: 15px;
+    }
+
+    .historico-topo {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        margin-bottom: 10px;
+    }
+
+    .historico-data {
+
+        color: #999;
+    }
+
+    .btn-atendimento {
+
+        display: inline-block;
+
+        margin-top: 10px;
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 8px 14px;
+
+        border-radius: 8px;
+    }
+
 </style>
 
-<div class="ficha-card">
+<h1 class="titulo">
+    Ficha do Paciente
+</h1>
 
-    <h1 class="titulo">
+<div class="tabs">
 
-        Ficha do Paciente
+    <button
+        class="tab-btn active"
+        onclick="abrirAba('dados', this)"
+    >
+        Dados do Paciente
+    </button>
 
-    </h1>
+    <button
+        class="tab-btn"
+        onclick="abrirAba('historico', this)"
+    >
+        Histórico de Atendimentos
+        ({{ total_atendimentos }})
+    </button>
 
-    <div class="grid">
+</div>
 
-        <div class="campo">
+<div
+    id="dados"
+    class="tab-content active"
+>
 
-            <strong>Nome</strong>
+    <div class="ficha-card">
 
-            {{ paciente.nome }}
+        <div class="resumo-clinico">
 
-        </div>
+            <div class="resumo-item">
 
-        <div class="campo">
+                <span>Total de Atendimentos</span>
 
-            <strong>CPF</strong>
+                <strong>
+                    {{ total_atendimentos }}
+                </strong>
 
-            {{ paciente.cpf }}
+            </div>
 
-        </div>
+            <div class="resumo-item">
 
-        <div class="campo">
+                <span>Último Atendimento</span>
 
-            <strong>Data de Nascimento</strong>
+                <strong>
 
-            {{ paciente.data_nascimento }}
+                    {% if ultimo_atendimento %}
+                        {{ ultimo_atendimento.data_atendimento|date:"d/m/Y" }}
+                    {% else %}
+                        Nenhum
+                    {% endif %}
 
-        </div>
+                </strong>
 
-        <div class="campo">
+            </div>
 
-            <strong>Sexo</strong>
+            <div class="resumo-item">
 
-            {{ paciente.get_sexo_display }}
+                <span>Último Médico</span>
 
-        </div>
+                <strong>
 
-        <div class="campo">
+                    {% if ultimo_atendimento %}
+                        {{ ultimo_atendimento.medico.usuario.nome }}
+                    {% else %}
+                        ---
+                    {% endif %}
 
-            <strong>Telefone</strong>
+                </strong>
 
-            {{ paciente.telefone }}
-
-        </div>
-
-        <div class="campo">
-
-            <strong>Telefone de Emergência</strong>
-
-            {{ paciente.telefone_emergencia|default:"Não informado" }}
-
-        </div>
-
-        <div class="campo">
-
-            <strong>Email</strong>
-
-            {{ paciente.email|default:"Não informado" }}
-
-        </div>
-
-        <div class="campo">
-
-            <strong>Convênio</strong>
-
-            {{ paciente.convenio|default:"Não informado" }}
-
-        </div>
-
-        <div class="campo campo-full">
-
-            <strong>Alergias</strong>
-
-            {{ paciente.alergias|default:"Nenhuma informação cadastrada." }}
+            </div>
 
         </div>
 
-        <div class="campo campo-full">
+        <div class="grid">
 
-            <strong>Doenças Genéticas</strong>
+            <div class="campo">
+                <strong>Nome</strong>
+                {{ paciente.nome }}
+            </div>
 
-            {{ paciente.doencas_geneticas|default:"Nenhuma informação cadastrada." }}
+            <div class="campo">
+                <strong>CPF</strong>
+                {{ paciente.cpf }}
+            </div>
+
+            <div class="campo">
+                <strong>Data de Nascimento</strong>
+                {{ paciente.data_nascimento }}
+            </div>
+
+            <div class="campo">
+                <strong>Sexo</strong>
+                {{ paciente.get_sexo_display }}
+            </div>
+
+            <div class="campo">
+                <strong>Telefone</strong>
+                {{ paciente.telefone }}
+            </div>
+
+            <div class="campo">
+                <strong>Telefone de Emergência</strong>
+                {{ paciente.telefone_emergencia|default:"Não informado" }}
+            </div>
+
+            <div class="campo">
+                <strong>Email</strong>
+                {{ paciente.email|default:"Não informado" }}
+            </div>
+
+            <div class="campo">
+                <strong>Convênio</strong>
+                {{ paciente.convenio|default:"Não informado" }}
+            </div>
+
+            <div class="campo campo-full">
+                <strong>Alergias</strong>
+                {{ paciente.alergias|default:"Nenhuma informação cadastrada." }}
+            </div>
+
+            <div class="campo campo-full">
+                <strong>Doenças Genéticas</strong>
+                {{ paciente.doencas_geneticas|default:"Nenhuma informação cadastrada." }}
+            </div>
+
+            <div class="campo campo-full">
+                <strong>Observações</strong>
+                {{ paciente.observacoes|default:"Nenhuma observação cadastrada." }}
+            </div>
+
+            <div class="campo campo-full">
+                <strong>Data de Cadastro</strong>
+                {{ paciente.data_cadastro }}
+            </div>
 
         </div>
 
-        <div class="campo campo-full">
-
-            <strong>Observações</strong>
-
-            {{ paciente.observacoes|default:"Nenhuma observação cadastrada." }}
-
-        </div>
-
-        <div class="campo campo-full">
-
-            <strong>Data de Cadastro</strong>
-
-            {{ paciente.data_cadastro }}
-
-        </div>
+        <a
+            href="{% url 'listar_pacientes' %}"
+            class="btn-voltar"
+        >
+            ← Voltar para Pacientes
+        </a>
 
     </div>
 
-    <a
-        href="{% url 'listar_pacientes' %}"
-        class="btn-voltar"
-    >
-        ← Voltar para Pacientes
-    </a>
+</div>
+
+<div
+    id="historico"
+    class="tab-content"
+>
+
+    <div class="ficha-card">
+
+        <h2>
+            Histórico de Atendimentos
+        </h2>
+
+        <br>
+
+        {% for atendimento in historico %}
+
+            <div class="historico-card">
+
+                <div class="historico-topo">
+
+                    <strong>
+                        {{ atendimento.medico.usuario.nome }}
+                    </strong>
+
+                    <span class="historico-data">
+
+                        {{ atendimento.data_atendimento|date:"d/m/Y H:i" }}
+
+                    </span>
+
+                </div>
+
+                <p>
+
+                    <strong>Status:</strong>
+
+                    {{ atendimento.get_status_display }}
+
+                </p>
+
+                <p>
+
+                    <strong>Queixa Principal:</strong>
+
+                    {{ atendimento.queixa_principal|truncatechars:120 }}
+
+                </p>
+
+                <a
+                    href="{% url 'detalhes_atendimento' atendimento.id %}"
+                    class="btn-atendimento"
+                >
+                    Ver Atendimento
+                </a>
+
+            </div>
+
+        {% empty %}
+
+            <p>
+                Nenhum atendimento encontrado.
+            </p>
+
+        {% endfor %}
+
+    </div>
 
 </div>
+
+<script>
+
+function abrirAba(id, botao) {
+
+    document
+        .querySelectorAll('.tab-content')
+        .forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+    document
+        .querySelectorAll('.tab-btn')
+        .forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+    document
+        .getElementById(id)
+        .classList.add('active');
+
+    botao.classList.add('active');
+}
+
+</script>
 
 {% endblock %}
