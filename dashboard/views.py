@@ -13,7 +13,7 @@ from atendimentos.models import Atendimento
 def home(request):
 
     context = {
-        
+
         'consultas_agendadas': Consulta.objects.filter(
             status='AGENDADA'
         ).count(),
@@ -25,6 +25,16 @@ def home(request):
         'consultas_hoje': Consulta.objects.filter(
             data_hora__date=timezone.now().date()
         ).count(),
+
+        'proximas_consultas': Consulta.objects.select_related(
+            'paciente',
+            'medico',
+            'medico__usuario'
+        ).filter(
+            data_hora__gte=timezone.now()
+        ).order_by(
+            'data_hora'
+        )[:5],
 
         'total_pacientes': Paciente.objects.count(),
 
@@ -51,7 +61,7 @@ def home(request):
         ).order_by(
             '-data_atendimento'
         )[:5]
-        
+
     }
 
     return render(

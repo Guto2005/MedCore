@@ -65,61 +65,78 @@
 
 <div class="form-card">
 
-    <h1>
-        Nova Consulta
-    </h1>
+<h1>
 
-    <br>
+    Nova Consulta
 
-    <form>
+</h1>
 
-        <div class="form-group">
+<br>
 
-            <label>
-                Paciente
-            </label>
+<form method="POST">
 
-            <input type="text">
+    {% csrf_token %}
 
-        </div>
+    <div class="form-group">
 
-        <div class="form-group">
+        <label>
+            Paciente
+        </label>
 
-            <label>
-                Médico
-            </label>
+        {{ form.paciente }}
 
-            <input type="text">
+    </div>
 
-        </div>
+    <div class="form-group">
 
-        <div class="form-group">
+        <label>
+            Médico
+        </label>
 
-            <label>
-                Data e Hora
-            </label>
+        {{ form.medico }}
 
-            <input type="datetime-local">
+    </div>
 
-        </div>
+    <div class="form-group">
 
-        <div class="form-group">
+        <label>
+            Data e Hora
+        </label>
 
-            <label>
-                Observações
-            </label>
+        {{ form.data_hora }}
 
-            <textarea rows="5"></textarea>
+    </div>
 
-        </div>
+    <div class="form-group">
 
-        <button class="btn-salvar">
+        <label>
+            Status
+        </label>
 
-            Salvar Consulta
+        {{ form.status }}
 
-        </button>
+    </div>
 
-    </form>
+    <div class="form-group">
+
+        <label>
+            Observações
+        </label>
+
+        {{ form.observacoes }}
+
+    </div>
+
+    <button
+        type="submit"
+        class="btn-salvar"
+    >
+
+        Salvar Consulta
+
+    </button>
+
+</form>
 
 </div>
 

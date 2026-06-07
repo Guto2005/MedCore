@@ -46,6 +46,15 @@
         border-radius:12px;
 
         padding:20px;
+
+        transition:.2s;
+    }
+
+    .consulta-card:hover {
+
+        border-color:#4f8cff;
+
+        transform:translateY(-2px);
     }
 
     .consulta-card h3 {
@@ -58,33 +67,144 @@
         margin-bottom:8px;
     }
 
+    .badge {
+
+        display:inline-block;
+
+        padding:6px 10px;
+
+        border-radius:8px;
+
+        font-size:12px;
+
+        font-weight:bold;
+
+        color:white;
+    }
+
+    .agendada {
+
+        background:#2d5cff;
+    }
+
+    .confirmada {
+
+        background:#1c8c3a;
+    }
+
+    .realizada {
+
+        background:#555;
+    }
+
+    .faltou {
+
+        background:#c08a00;
+    }
+
+    .cancelada {
+
+        background:#b82727;
+    }
+
 </style>
 
 <div class="header-consultas">
 
-    <h1>
-        Consultas
-    </h1>
 
-    <a href="{% url 'nova_consulta' %}" class="btn-novo">
-        + Nova Consulta
-    </a>
+<h1>
+    Consultas
+</h1>
+
+<a href="{% url 'nova_consulta' %}" class="btn-novo">
+    + Nova Consulta
+</a>
 
 </div>
 
 <div class="consultas-grid">
 
+{% for consulta in consultas %}
+
+    <a
+        href="{% url 'editar_consulta' consulta.id %}"
+        style="
+            text-decoration:none;
+            color:inherit;
+        "
+    >
+
+        <div class="consulta-card">
+
+            <h3>
+
+                {{ consulta.paciente.nome }}
+
+            </h3>
+
+            <p>
+
+                <strong>Médico:</strong>
+
+                {{ consulta.medico.usuario.nome }}
+
+            </p>
+
+            <p>
+
+                <strong>Data:</strong>
+
+                {{ consulta.data_hora|date:"d/m/Y H:i" }}
+
+            </p>
+
+            <p>
+
+                <span class="badge
+
+                    {% if consulta.status == 'AGENDADA' %}
+                        agendada
+                    {% elif consulta.status == 'CONFIRMADA' %}
+                        confirmada
+                    {% elif consulta.status == 'REALIZADA' %}
+                        realizada
+                    {% elif consulta.status == 'FALTOU' %}
+                        faltou
+                    {% elif consulta.status == 'CANCELADA' %}
+                        cancelada
+                    {% endif %}
+
+                ">
+
+                    {{ consulta.get_status_display }}
+
+                </span>
+
+            </p>
+
+        </div>
+
+    </a>
+
+{% empty %}
+
     <div class="consulta-card">
 
         <h3>
+
             Nenhuma consulta cadastrada
+
         </h3>
 
         <p>
-            Em breve as consultas aparecerão aqui.
+
+            Clique em "Nova Consulta" para começar.
+
         </p>
 
     </div>
+
+{% endfor %}
 
 </div>
 
