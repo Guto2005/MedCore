@@ -1,0 +1,178 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<div class="form-card">
+
+    <h1>
+        Alterar Senha
+    </h1>
+
+    <br>
+
+    {% if messages %}
+
+    {% for message in messages %}
+
+    <div class="alert-success">
+        {{ message }}
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+    {% if form.errors %}
+
+    <div class="alert-error">
+
+        {% for field in form %}
+
+        {% for error in field.errors %}
+
+        <p>{{ error }}</p>
+
+        {% endfor %}
+
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+
+        <p>{{ error }}</p>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>{{ form.old_password.label }}</label>
+            {{ form.old_password }}
+        </div>
+
+        <div class="form-group">
+            <label>{{ form.new_password1.label }}</label>
+            {{ form.new_password1 }}
+        </div>
+
+        <div class="form-group">
+            <label>{{ form.new_password2.label }}</label>
+            {{ form.new_password2 }}
+        </div>
+
+        <div class="help-text">
+            {{ form.new_password1.help_text|safe }}
+        </div>
+</div>
+
+<button class="btn-salvar">
+
+    Salvar Nova Senha
+
+</button>
+
+</form>
+
+</div>
+
+<style>
+    .alert-success {
+
+        background: #14532d;
+
+        border: 1px solid #22c55e;
+
+        color: #dcfce7;
+
+        padding: 12px;
+
+        border-radius: 8px;
+
+        margin-bottom: 20px;
+    }
+
+    .alert-error {
+
+        background: #4c0519;
+
+        border: 1px solid #ef4444;
+
+        color: #fecaca;
+
+        padding: 12px;
+
+        border-radius: 8px;
+
+        margin-bottom: 20px;
+    }
+
+    .form-card {
+
+        max-width: 700px;
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 25px;
+    }
+
+    .form-card input {
+
+        width: 100%;
+
+        padding: 12px;
+
+        margin-top: 5px;
+
+        margin-bottom: 15px;
+
+        background: #252525;
+
+        border: 1px solid #333;
+
+        color: white;
+
+        border-radius: 8px;
+    }
+
+    .btn-salvar {
+
+        background: #4f8cff;
+
+        color: white;
+
+        border: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        width: fit-content
+    }
+
+    .help-text {
+        margin-top: 10px;
+        color: #bbb;
+        font-size: 14px;
+    }
+
+    .help-text ul {
+        margin-left: 20px;
+    }
+
+    .help-text li {
+        margin-bottom: 5px;
+    }
+</style>
+
+{% endblock %}

@@ -8,6 +8,10 @@ from pacientes.models import Paciente
 from medicos.models import Medico
 from atendimentos.models import Atendimento
 
+from secretarias.models import Secretaria
+
+total_secretarias = Secretaria.objects.count()
+
 
 @login_required(login_url='login')
 def home(request):
@@ -41,6 +45,8 @@ def home(request):
         'total_medicos': Medico.objects.count(),
 
         'total_atendimentos': Atendimento.objects.count(),
+        
+        'total_secretarias': total_secretarias,
 
         'atendimentos_abertos': Atendimento.objects.filter(
             status='ABERTO'

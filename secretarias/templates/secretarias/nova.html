@@ -1,0 +1,205 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<style>
+
+.form-card{
+
+    max-width:900px;
+
+    background:#1d1d1d;
+
+    border:1px solid #2c2c2c;
+
+    border-radius:16px;
+
+    padding:30px;
+}
+
+.form-title{
+
+    margin-bottom:25px;
+}
+
+.form-title h1{
+
+    margin-bottom:5px;
+}
+
+.form-title p{
+
+    color:#888;
+}
+
+.form-group{
+
+    margin-bottom:25px;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#fff;
+}
+
+.campo-form{
+
+    width:100%;
+
+    background:#252525;
+
+    color:white;
+
+    border:1px solid #333;
+
+    border-radius:10px;
+
+    padding:14px;
+
+    font-size:15px;
+}
+
+.campo-medicos{
+
+    min-height:220px;
+}
+
+.info-box{
+
+    background:#202b3d;
+
+    border:1px solid #36527a;
+
+    color:#9dbfff;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+}
+
+.buttons{
+
+    display:flex;
+
+    gap:15px;
+}
+
+.btn-salvar{
+
+    background:#4f8cff;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+.btn-salvar:hover{
+
+    background:#3f7aea;
+}
+
+.btn-voltar{
+
+    background:#2d2d2d;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+}
+
+.btn-voltar:hover{
+
+    background:#3a3a3a;
+}
+
+</style>
+
+<div class="form-card">
+
+    <div class="form-title">
+
+        <h1>
+            Nova Secretária
+        </h1>
+
+        <p>
+            Vincule uma secretária aos médicos que ela poderá gerenciar.
+        </p>
+
+    </div>
+
+    <div class="info-box">
+
+        ℹ Uma secretária pode estar vinculada a vários médicos.
+
+    </div>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+
+            <label>
+
+                {{ form.usuario.label }}
+
+            </label>
+
+            {{ form.usuario }}
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+
+                {{ form.medicos.label }}
+
+            </label>
+
+            {{ form.medicos }}
+
+        </div>
+
+        <div class="buttons">
+
+            <button type="submit" class="btn-salvar">
+
+                Salvar Secretária
+
+            </button>
+
+            <a href="{% url 'listar_secretarias' %}" class="btn-voltar">
+
+                Voltar
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

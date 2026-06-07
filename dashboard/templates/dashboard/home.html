@@ -105,6 +105,11 @@
 </div>
 
 <div class="card">
+    <h3>Secretárias</h3>
+    <p>{{ total_secretarias }}</p>
+</div>
+
+<div class="card">
     <h3>Atendimentos</h3>
     <p>{{ total_atendimentos }}</p>
 </div>
@@ -138,47 +143,6 @@
     <h3>Realizadas</h3>
     <p>{{ consultas_realizadas }}</p>
 </div>
-
-</div>
-
-<div class="recentes-card">
-
-
-<h2>
-    Últimos Atendimentos
-</h2>
-
-<br>
-
-{% for atendimento in ultimos_atendimentos %}
-
-    <div class="atendimento-item">
-
-        <div>
-
-            <div class="paciente">
-                {{ atendimento.paciente.nome }}
-            </div>
-
-            <div class="medico">
-                {{ atendimento.medico.usuario.nome }}
-            </div>
-
-        </div>
-
-        <div class="data">
-            {{ atendimento.data_atendimento|date:"d/m/Y H:i" }}
-        </div>
-
-    </div>
-
-{% empty %}
-
-    <p>
-        Nenhum atendimento registrado.
-    </p>
-
-{% endfor %}
 
 </div>
 
@@ -223,4 +187,47 @@
 
 </div>
 
+<div class="recentes-card">
+
+
+<h2>
+    Últimos Atendimentos
+</h2>
+
+<br>
+
+{% for atendimento in ultimos_atendimentos %}
+
+    <div class="atendimento-item">
+
+        <div>
+
+            <div class="paciente">
+                {{ atendimento.paciente.nome }}
+            </div>
+
+            <div class="medico">
+                {{ atendimento.medico.usuario.nome }}
+            </div>
+
+        </div>
+
+        <div class="data">
+            {{ atendimento.data_atendimento|date:"d/m/Y H:i" }}
+        </div>
+
+    </div>
+
+{% empty %}
+
+    <p>
+        Nenhum atendimento registrado.
+    </p>
+
+{% endfor %}
+
+</div>
+
 {% endblock %}
+
+

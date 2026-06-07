@@ -54,6 +54,16 @@ urlpatterns = [
         include('consultas.urls')
     ),
     
+    path (
+        'secretarias/',
+        include('secretarias.urls')
+    ),
+    
+    path(
+        'usuarios/',
+        include('usuarios.urls')
+    ),
+    
     path(
         'logout/',
         LogoutView.as_view(next_page='/'),

@@ -1,0 +1,81 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<div class="perfil-card">
+
+    <h1>Meu Perfil</h1>
+
+    <br>
+
+    <div class="info">
+
+        <label>Usuário</label>
+
+        <p>{{ request.user.username }}</p>
+
+    </div>
+
+    <div class="info">
+
+        <label>Email</label>
+
+        <p>{{ request.user.email|default:"Não informado" }}</p>
+
+    </div>
+
+    <div class="info">
+
+        <label>Tipo</label>
+
+        <p>
+
+            {% if request.user.is_superuser %}
+                Administrador
+            {% else %}
+                Usuário
+            {% endif %}
+
+        </p>
+
+    </div>
+
+</div>
+
+<style>
+
+.perfil-card{
+
+    max-width:700px;
+
+    background:#1d1d1d;
+
+    border:1px solid #2c2c2c;
+
+    border-radius:14px;
+
+    padding:25px;
+}
+
+.info{
+
+    margin-bottom:20px;
+}
+
+.info label{
+
+    color:#888;
+
+    display:block;
+
+    margin-bottom:5px;
+}
+
+.info p{
+
+    font-size:18px;
+}
+
+</style>
+
+{% endblock %}

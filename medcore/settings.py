@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'atendimentos',
     'dashboard',
     'consultas',
+    'secretarias',
 ]
 
 MIDDLEWARE = [

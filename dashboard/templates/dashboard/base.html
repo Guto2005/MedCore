@@ -100,6 +100,44 @@
 
         /* MAIN */
 
+        .alert {
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin-bottom: 15px;
+
+            font-weight: 500;
+        }
+
+        .alert.success {
+
+            background: #1f3b28;
+
+            color: #6ddc8b;
+
+            border: 1px solid #2d6a4f;
+        }
+
+        .alert.error {
+
+            background: #3b1f1f;
+
+            color: #ff8080;
+
+            border: 1px solid #a94442;
+        }
+
+        .alert.warning {
+
+            background: #3b321f;
+
+            color: #ffd166;
+
+            border: 1px solid #b8860b;
+        }
+
         .content {
             flex: 1;
         }
@@ -120,7 +158,10 @@
         }
 
         .page {
+            display: flex;
+            flex-direction: column;
             padding: 30px;
+            gap: 16px;
         }
 
         /* USER */
@@ -275,6 +316,94 @@
             padding: 10px 16px;
             border-radius: 8px;
         }
+
+        .profile-dropdown {
+
+            position: relative;
+        }
+
+        .profile-btn {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            background: #1f1f1f;
+
+            border: 1px solid #333;
+
+            color: white;
+
+            padding: 10px 15px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .profile-btn:hover {
+
+            border-color: #4f8cff;
+        }
+
+        .profile-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            text-align: right;
+        }
+
+        .profile-info small {
+
+            color: #999;
+        }
+
+        .profile-menu {
+
+            position: absolute;
+
+            right: 0;
+
+            top: 60px;
+
+            width: 220px;
+
+            background: #1d1d1d;
+
+            border: 1px solid #333;
+
+            border-radius: 12px;
+
+            display: none;
+
+            overflow: hidden;
+
+            z-index: 999;
+        }
+
+        .profile-menu a {
+
+            display: block;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 15px;
+
+            transition: .2s;
+        }
+
+        .profile-menu a:hover {
+
+            background: #252525;
+        }
     </style>
 
 </head>
@@ -352,15 +481,30 @@
                 <div class="dropdown">
 
                     <button class="dropdown-btn">
-                        📋 Atendimentos
+                        🗓 Consultas
                         <span>▼</span>
                     </button>
 
-                    
+                    <div class="dropdown-content">
+
                         <a href="{% url 'listar_consultas' %}">
-                            📅 Consultas
+                            Listagem
                         </a>
-                    
+
+                        <a href="{% url 'nova_consulta' %}">
+                            Nova Consulta
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="dropdown">
+
+                    <button class="dropdown-btn">
+                        📋 Atendimentos
+                        <span>▼</span>
+                    </button>
 
                     <div class="dropdown-content">
 
@@ -376,36 +520,112 @@
 
                 </div>
 
+                <div class="dropdown">
+
+                    <button class="dropdown-btn">
+                        👩 Secretárias
+                        <span>▼</span>
+                    </button>
+
+                    <div class="dropdown-content">
+
+                        <a href="{% url 'listar_secretarias' %}">
+                            Listagem
+                        </a>
+
+                        <a href="{% url 'nova_secretaria' %}">
+                            Cadastrar
+                        </a>
+
+                    </div>
+
+                </div>
+
+
             </nav>
 
         </aside>
 
         <main class="content">
+            {% if messages %}
+
+            {% for message in messages %}
+
+            <div class="alert {{ message.tags }}">
+
+                {{ message }}
+
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
 
             <div class="topbar">
 
-                <h2>
-                    Dashboard
-                </h2>
+                <div>
 
-                <div class="user-area">
+                    <h2>
+                        Dashboard Clínico
+                    </h2>
 
-                    <div class="user-info">
+                    <small style="color:#888;">
+                        Visão geral do sistema
+                    </small>
 
-                        <strong>
-                            {{ request.user.username }}
-                        </strong>
+                </div>
 
-                        <small>
-                            Administrador
-                        </small>
+                <div class="profile-dropdown">
+
+                    <button class="profile-btn">
+
+                        <div class="profile-info">
+
+                            <strong>
+
+                                {{ request.user.username }}
+
+                            </strong>
+
+                            <small>
+
+                                {% if request.user.is_superuser %}
+                                Administrador
+                                {% else %}
+                                Usuário
+                                {% endif %}
+
+                            </small>
+
+                        </div>
+
+                        ▼
+
+                    </button>
+
+                    <div class="profile-menu">
+
+                        <a href="{% url 'perfil' %}">
+                            👤 Meu Perfil
+                        </a>
+
+                        <a href="{% url 'alterar_senha' %}">
+                            🔒 Alterar Senha
+                        </a>
+
+                        {% if request.user.is_superuser %}
+
+                        <a href="/admin/">
+                            ⚙ Painel Administrativo
+                        </a>
+
+                        {% endif %}
+
+                        <a href="#" onclick="abrirModal()">
+                            🚪 Sair
+                        </a>
 
                     </div>
-
-
-                    <button class="logout-btn" onclick="abrirModal()" title="Sair">
-                        🚪
-                    </button>
 
                 </div>
 
@@ -483,6 +703,21 @@
                         : 'block';
 
             });
+
+        });
+
+        const profileBtn =
+            document.querySelector('.profile-btn');
+
+        const profileMenu =
+            document.querySelector('.profile-menu');
+
+        profileBtn.addEventListener('click', () => {
+
+            profileMenu.style.display =
+                profileMenu.style.display === 'block'
+                    ? 'none'
+                    : 'block';
 
         });
 
