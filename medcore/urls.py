@@ -50,6 +50,11 @@ urlpatterns = [
     ),
     
     path(
+        'consultas/',
+        include('consultas.urls')
+    ),
+    
+    path(
         'logout/',
         LogoutView.as_view(next_page='/'),
         name='logout'

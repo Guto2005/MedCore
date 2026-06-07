@@ -1,0 +1,91 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<style>
+
+    .header-consultas {
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-bottom:30px;
+    }
+
+    .btn-novo {
+
+        background:#4f8cff;
+
+        color:white;
+
+        text-decoration:none;
+
+        padding:12px 18px;
+
+        border-radius:8px;
+    }
+
+    .consultas-grid {
+
+        display:grid;
+
+        grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+
+        gap:20px;
+    }
+
+    .consulta-card {
+
+        background:#1d1d1d;
+
+        border:1px solid #2c2c2c;
+
+        border-radius:12px;
+
+        padding:20px;
+    }
+
+    .consulta-card h3 {
+
+        margin-bottom:15px;
+    }
+
+    .consulta-card p {
+
+        margin-bottom:8px;
+    }
+
+</style>
+
+<div class="header-consultas">
+
+    <h1>
+        Consultas
+    </h1>
+
+    <a href="{% url 'nova_consulta' %}" class="btn-novo">
+        + Nova Consulta
+    </a>
+
+</div>
+
+<div class="consultas-grid">
+
+    <div class="consulta-card">
+
+        <h3>
+            Nenhuma consulta cadastrada
+        </h3>
+
+        <p>
+            Em breve as consultas aparecerão aqui.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

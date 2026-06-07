@@ -3,7 +3,6 @@
 {% block content %}
 
 <style>
-
     .dashboard-header {
 
         margin-bottom: 25px;
@@ -104,19 +103,18 @@
 
         font-size: 14px;
     }
-
 </style>
 
 <div class="dashboard-header">
 
 
-<h1>
-    Bem-vindo ao MedCore
-</h1>
+    <h1>
+        Bem-vindo ao MedCore
+    </h1>
 
-<p>
-    Sistema de gestão hospitalar
-</p>
+    <p>
+        Sistema de gestão hospitalar
+    </p>
 
 
 </div>
@@ -124,45 +122,60 @@
 <div class="cards">
 
 
-<div class="card">
-    <h3>Pacientes</h3>
-    <p>{{ total_pacientes }}</p>
-</div>
+    <div class="card">
+        <h3>Pacientes</h3>
+        <p>{{ total_pacientes }}</p>
+    </div>
 
-<div class="card">
-    <h3>Médicos</h3>
-    <p>{{ total_medicos }}</p>
-</div>
+    <div class="card">
+        <h3>Médicos</h3>
+        <p>{{ total_medicos }}</p>
+    </div>
 
-<div class="card">
-    <h3>Atendimentos</h3>
-    <p>{{ total_atendimentos }}</p>
-</div>
+    <div class="card">
+        <h3>Atendimentos</h3>
+        <p>{{ total_atendimentos }}</p>
+    </div>
 
-<div class="card">
-    <h3>Em Aberto</h3>
-    <p>{{ atendimentos_abertos }}</p>
-</div>
+    <div class="card">
+        <h3>Em Aberto</h3>
+        <p>{{ atendimentos_abertos }}</p>
+    </div>
 
-<div class="card">
-    <h3>Finalizados</h3>
-    <p>{{ atendimentos_finalizados }}</p>
-</div>
+    <div class="card">
+        <h3>Finalizados</h3>
+        <p>{{ atendimentos_finalizados }}</p>
+    </div>
 
-<div class="card">
-    <h3>Cancelados</h3>
-    <p>{{ atendimentos_cancelados }}</p>
-</div>
+    <div class="card">
+        <h3>Cancelados</h3>
+        <p>{{ atendimentos_cancelados }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Consultas Hoje</h3>
+        <p>{{ consultas_hoje }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Agendadas</h3>
+        <p>{{ consultas_agendadas }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Realizadas</h3>
+        <p>{{ consultas_realizadas }}</p>
+    </div>
 
 </div>
 
 <div class="recentes-card">
 
-<h2>
-    Últimos Atendimentos
-</h2>
+    <h2>
+        Últimos Atendimentos
+    </h2>
 
-{% for atendimento in ultimos_atendimentos %}
+    {% for atendimento in ultimos_atendimentos %}
 
     <div class="atendimento-item">
 
@@ -184,13 +197,13 @@
 
     </div>
 
-{% empty %}
+    {% empty %}
 
     <p>
         Nenhum atendimento registrado.
     </p>
 
-{% endfor %}
+    {% endfor %}
 
 
 </div>

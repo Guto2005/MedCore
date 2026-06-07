@@ -1,3 +1,6 @@
+from consultas.models import Consulta
+from django.utils import timezone
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
@@ -10,6 +13,18 @@ from atendimentos.models import Atendimento
 def home(request):
 
     context = {
+        
+        'consultas_agendadas': Consulta.objects.filter(
+            status='AGENDADA'
+        ).count(),
+
+        'consultas_realizadas': Consulta.objects.filter(
+            status='REALIZADA'
+        ).count(),
+
+        'consultas_hoje': Consulta.objects.filter(
+            data_hora__date=timezone.now().date()
+        ).count(),
 
         'total_pacientes': Paciente.objects.count(),
 
@@ -36,6 +51,7 @@ def home(request):
         ).order_by(
             '-data_atendimento'
         )[:5]
+        
     }
 
     return render(
