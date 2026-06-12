@@ -1,0 +1,217 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<div class="laudo-layout">
+
+    <div class="dicom-info">
+
+        <p>
+            <strong>Paciente:</strong>
+            {{ exame.paciente.nome }}
+        </p>
+
+        <p>
+            <strong>Modalidade:</strong>
+            {{ modalidade }}
+        </p>
+
+        <p>
+            <strong>Resolução:</strong>
+            {{ rows }} x {{ columns }}
+        </p>
+
+    </div>
+
+    <div class="imagem-area">
+
+        <img src="{% url 'preview_exame' exame.id %}" class="dicom-preview">
+
+    </div>
+
+    <div class="form-area">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="acoes-laudo">
+
+                <button type="submit" name="acao" value="rascunho" class="btn-rascunho">
+
+                    Salvar Rascunho
+
+                </button>
+
+                <button type="submit" name="acao" value="finalizar" class="btn-finalizar">
+
+                    Finalizar Laudo
+
+                </button>
+
+                <a href="{% url 'exames_em_laudo' %}" class="btn-voltar">
+
+                    Voltar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+    .card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 25px;
+
+        max-width: 900px;
+    }
+
+    .btn-download {
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+    }
+
+    .acoes-laudo {
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-top: 20px;
+
+        flex-wrap: wrap;
+    }
+
+    .btn-rascunho {
+
+        background: #d4a017;
+
+        color: white;
+
+        border: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+    .btn-finalizar {
+
+        background: #28a745;
+
+        color: white;
+
+        border: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+    }
+
+    .btn-voltar {
+
+        background: #444;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+    }
+
+    .dicom-preview {
+
+        width: 100%;
+
+        max-width: 800px;
+
+        border-radius: 12px;
+
+        border: 1px solid #333;
+    }
+
+    .laudo-layout {
+
+        display: flex;
+
+        gap: 24px;
+
+        align-items: flex-start;
+    }
+
+    .dicom-info {
+
+        margin-bottom: 20px;
+
+        padding: 16px;
+
+        background: #252525;
+
+        border-radius: 10px;
+    }
+
+    .imagem-area {
+
+        flex: 2;
+    }
+
+    .form-area {
+
+        flex: 1;
+    }
+
+    .form-area textarea {
+
+        width: 100%;
+
+        min-height: 120px;
+
+        background: #252525;
+
+        color: white;
+
+        border: 1px solid #333;
+
+        border-radius: 8px;
+
+        padding: 12px;
+    }
+
+    .form-area label {
+
+        display: block;
+
+        margin-bottom: 8px;
+
+        margin-top: 12px;
+    }
+</style>
+
+{% endblock %}

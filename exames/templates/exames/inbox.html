@@ -1,0 +1,130 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<h1>Inbox de Exames</h1>
+
+<p>Exames aguardando laudo</p>
+
+<br>
+
+<div class="exam-grid">
+
+    {% for exame in exames %}
+
+    <div class="exam-card">
+
+        <h3>
+            {{ exame.paciente.nome }}
+        </h3>
+
+        <p>
+            <strong>Exame:</strong>
+            {{ exame.tipo_exame }}
+        </p>
+
+        <p>
+            <strong>Data:</strong>
+            {{ exame.data_envio|date:"d/m/Y H:i" }}
+        </p>
+
+        <span class="status">
+            {{ exame.get_status_display }}
+        </span>
+
+        <br><br>
+
+        <a href="{% url 'assumir_laudo' exame.id %}" class="btn">
+
+            Assumir Laudo
+
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty-card">
+
+        Nenhum exame pendente.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<style>
+    .exam-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fill,
+                minmax(320px, 1fr));
+
+        gap: 20px;
+    }
+
+    .exam-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 20px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 16px;
+    }
+
+    .empty-card {
+
+        background: #1d1d1d;
+
+        border: 1px solid #2c2c2c;
+
+        border-radius: 14px;
+
+        padding: 20px;
+    }
+
+    .status {
+
+        background: #403015;
+
+        color: #ffb84d;
+
+        padding: 6px 12px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+
+        width: fit-content;
+    }
+
+    .btn {
+
+        display: inline-block;
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 10px 16px;
+
+        border-radius: 8px;
+
+        width: fit-content;
+    }
+</style>
+
+{% endblock %}

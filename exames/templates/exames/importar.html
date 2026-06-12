@@ -1,0 +1,90 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>Importar Exame</h1>
+
+    <p>
+        Enviar exame DICOM para o PACS
+    </p>
+
+</div>
+
+<div class="card">
+
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn">
+
+            Importar Exame
+
+        </button>
+
+    </form>
+
+</div>
+
+<style>
+
+.page-header {
+
+    margin-bottom: 25px;
+}
+
+.card {
+
+    background: #1d1d1d;
+
+    border: 1px solid #2c2c2c;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    max-width: 900px;
+}
+
+.card input,
+.card select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: #252525;
+
+    border: 1px solid #333;
+
+    color: white;
+
+    border-radius: 8px;
+
+    margin-top: 5px;
+
+    margin-bottom: 15px;
+}
+
+.btn {
+
+    background: #4f8cff;
+
+    border: none;
+
+    color: white;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+</style>
+
+{% endblock %}

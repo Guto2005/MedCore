@@ -1,0 +1,97 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<div class="viewer-container">
+
+    <div class="viewer-header">
+
+        <h1>
+
+            {{ exame.tipo_exame }}
+
+        </h1>
+
+        <p>
+
+            {{ exame.paciente.nome }}
+
+        </p>
+
+    </div>
+
+    <div id="dicomImage"></div>
+
+</div>
+
+<script>
+
+    cornerstoneWADOImageLoader.external.cornerstone =
+        cornerstone;
+
+    const element =
+        document.getElementById(
+            'dicomImage'
+        );
+
+    cornerstone.enable(
+        element
+    );
+
+    const imageId =
+        "wadouri:{{ exame.arquivo.url }}";
+
+    cornerstone.loadImage(
+        imageId
+    ).then(
+
+        function (image) {
+
+            cornerstone.displayImage(
+                element,
+                image
+            );
+
+        }
+
+    ).catch(
+
+        function (err) {
+
+            console.error(err);
+
+            element.innerHTML =
+                "<h2 style='color:white;text-align:center;padding-top:100px;'>Erro ao carregar DICOM</h2>";
+
+        }
+
+    );
+
+</script>
+
+<style>
+    .viewer-container {
+
+        width: 100%;
+    }
+
+    .viewer-header {
+
+        margin-bottom: 20px;
+    }
+
+    #dicomImage {
+
+        width: 100%;
+
+        height: 700px;
+
+        background: #000;
+
+        border-radius: 14px;
+
+        border: 1px solid #333;
+    }
+</style>
+
+{% endblock %}

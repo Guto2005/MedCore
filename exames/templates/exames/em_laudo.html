@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+
+<div class="header">
+
+    <h1>Exames em Laudo</h1>
+
+</div>
+
+<div class="lista">
+
+    {% for exame in exames %}
+
+    <div class="card">
+
+        <h3>{{ exame.paciente.nome }}</h3>
+
+        <p>
+            {{ exame.tipo_exame }}
+        </p>
+
+        <p>
+            Recebido em:
+            {{ exame.data_envio|date:"d/m/Y H:i" }}
+        </p>
+
+        <div class="actions">
+
+            <a href="{% url 'detalhe_exame' exame.id %}"
+               class="btn-ver">
+
+                Continuar Laudo
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="card">
+
+        Nenhum exame em laudo.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<style>
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.lista{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1d1d1d;
+    border:1px solid #2c2c2c;
+    border-radius:12px;
+    padding:20px;
+}
+
+.actions{
+    margin-top:15px;
+}
+
+.btn-ver{
+    background:#4f8cff;
+    color:white;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:8px;
+}
+
+</style>
+
+{% endblock %}

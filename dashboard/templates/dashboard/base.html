@@ -541,6 +541,38 @@
 
                 </div>
 
+                <div class="dropdown">
+
+                    <button class="dropdown-btn">
+
+                        📂 Exames
+
+                        <span>▼</span>
+
+                    </button>
+
+                    <div class="dropdown-content">
+
+                        <a href="{% url 'importar_exame' %}">
+                            Importar
+                        </a>
+
+                        <a href="{% url 'inbox_exames' %}">
+                            Inbox
+                        </a>
+
+                        <a href="{% url 'exames_em_laudo' %}">
+                            Em Laudo
+                        </a>
+
+                        <a href="{% url 'exames_finalizados' %}">
+                            Finalizados
+                        </a>
+
+                    </div>
+
+                </div>
+
 
             </nav>
 
