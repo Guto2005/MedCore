@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-O MedCore é um sistema web desenvolvido para auxiliar clínicas e consultórios médicos no gerenciamento de pacientes, médicos, consultas e atendimentos, centralizando as informações em uma única plataforma.
+O MedCore é um sistema web desenvolvido para auxiliar clínicas, consultórios e profissionais da saúde no gerenciamento de pacientes, médicos, consultas, atendimentos e exames médicos, centralizando as informações em uma única plataforma.
 
 ---
 
@@ -14,6 +14,9 @@ O MedCore é um sistema web desenvolvido para auxiliar clínicas e consultórios
 * HTML5
 * CSS3
 * JavaScript
+* PyDICOM
+* Pillow (PIL)
+* NumPy
 
 ---
 
@@ -71,6 +74,22 @@ O MedCore é um sistema web desenvolvido para auxiliar clínicas e consultórios
 * Consultas realizadas
 * Próximas consultas
 
+### Exames (PACS Inicial)
+
+* Importação manual de exames DICOM
+* Inbox de exames pendentes
+* Controle de status dos exames
+
+  * Pendente
+  * Em Laudo
+  * Finalizado
+* Leitura de metadados DICOM
+* Preview de exames médicos
+* Sistema de laudos
+* Salvamento de rascunhos
+* Finalização de laudos
+* Histórico de exames finalizados
+
 ---
 
 ## Diferenciais Implementados
@@ -86,6 +105,10 @@ Além dos requisitos obrigatórios propostos no desafio, o sistema conta com:
 * Alteração segura de senha
 * Interface moderna em tema escuro
 * Organização modular utilizando múltiplas aplicações Django
+* PACS inicial para gerenciamento de exames médicos
+* Leitura de arquivos DICOM
+* Sistema de laudos médicos
+* Preview de exames por imagem
 
 ---
 
@@ -99,7 +122,7 @@ O sistema utiliza SQLite para armazenamento e persistência das informações.
 
 O projeto foi desenvolvido seguindo o padrão MTV (Model-Template-View) do framework Django, buscando organização, legibilidade e facilidade de manutenção.
 
-Aplicações principais:
+### Aplicações Principais
 
 * usuarios
 * pacientes
@@ -108,6 +131,7 @@ Aplicações principais:
 * atendimentos
 * secretarias
 * dashboard
+* exames
 
 ---
 
@@ -115,7 +139,7 @@ Aplicações principais:
 
 O projeto foi desenvolvido utilizando ambiente virtual Python (venv).
 
-### Executar o projeto
+### Executar o Projeto
 
 Ativar ambiente virtual:
 
@@ -139,6 +163,41 @@ http://127.0.0.1:8000/
 
 ---
 
+## Evolução do Projeto
+
+### Versão 1.4
+
+Implementação inicial do módulo PACS do MedCore.
+
+Recursos adicionados:
+
+* Importação de exames DICOM
+* Inbox de exames
+* Fluxo de laudos
+* Salvamento de rascunhos
+* Finalização de laudos
+* Preview de imagens médicas
+* Leitura de metadados DICOM utilizando PyDICOM
+
+Esta versão estabelece a base para futuras integrações com servidores PACS, sistemas RIS e visualizadores médicos avançados.
+
+---
+
+## Próximos Passos
+
+Planejamento da versão 1.5:
+
+* Integração com Cornerstone
+* Controle de permissões por perfil
+* Médico responsável pelo laudo
+* Auto preenchimento de dados via DICOM
+* Auditoria de alterações
+* Evolução do módulo PACS
+
+---
+
 ## Conclusão
 
-O MedCore atende aos requisitos propostos para o Projeto de Conclusão do Programa Desenvolvedor Trainee 2026 da BGMax Tecnologia e apresenta funcionalidades adicionais que ampliam sua utilização em ambientes clínicos e hospitalares.
+O MedCore atende aos requisitos propostos para o Projeto de Conclusão do Programa Desenvolvedor Trainee 2026 da BGMax Tecnologia.
+
+Além dos requisitos obrigatórios, o sistema evoluiu para incluir funcionalidades voltadas ao ambiente clínico e hospitalar, como gerenciamento de exames médicos, fluxo de laudos e integração inicial com arquivos DICOM, servindo como base para futuras expansões do módulo PACS.
