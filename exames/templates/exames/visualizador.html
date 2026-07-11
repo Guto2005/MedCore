@@ -2,96 +2,170 @@
 
 {% block content %}
 
-<div class="viewer-container">
+<div class="viewer-layout">
 
-    <div class="viewer-header">
+    <div class="viewer-main">
 
-        <h1>
-
-            {{ exame.tipo_exame }}
-
-        </h1>
-
-        <p>
-
-            {{ exame.paciente.nome }}
-
-        </p>
+        <img
+            id="dicomPreview"
+            src="{% url 'preview_exame' exame.id %}"
+        >
 
     </div>
 
-    <div id="dicomImage"></div>
+    <div class="viewer-sidebar">
+
+        <h2>Informações</h2>
+
+        <hr>
+
+        <p>
+            <strong>Paciente:</strong><br>
+            {{ exame.paciente.nome }}
+        </p>
+
+        <p>
+            <strong>Exame:</strong><br>
+            {{ exame.tipo_exame }}
+        </p>
+
+        <p>
+            <strong>Status:</strong><br>
+            {{ exame.get_status_display }}
+        </p>
+
+        <hr>
+
+        <button onclick="zoomIn()" class="btn-sidebar">
+
+            Zoom +
+
+        </button>
+
+        <button onclick="zoomOut()" class="btn-sidebar">
+
+            Zoom -
+
+        </button>
+
+        <a
+            href="{% url 'detalhe_exame' exame.id %}"
+            class="btn-sidebar"
+        >
+
+            Abrir Laudo
+
+        </a>
+
+    </div>
 
 </div>
 
 <script>
 
-    cornerstoneWADOImageLoader.external.cornerstone =
-        cornerstone;
+let zoom = 1;
 
-    const element =
-        document.getElementById(
-            'dicomImage'
-        );
+function zoomIn() {
 
-    cornerstone.enable(
-        element
-    );
+    zoom += 0.2;
 
-    const imageId =
-        "wadouri:{{ exame.arquivo.url }}";
+    document.getElementById(
+        "dicomPreview"
+    ).style.transform =
+        `scale(${zoom})`;
 
-    cornerstone.loadImage(
-        imageId
-    ).then(
+}
 
-        function (image) {
+function zoomOut() {
 
-            cornerstone.displayImage(
-                element,
-                image
-            );
+    zoom -= 0.2;
 
-        }
+    if (zoom < 0.2) {
 
-    ).catch(
+        zoom = 0.2;
 
-        function (err) {
+    }
 
-            console.error(err);
+    document.getElementById(
+        "dicomPreview"
+    ).style.transform =
+        `scale(${zoom})`;
 
-            element.innerHTML =
-                "<h2 style='color:white;text-align:center;padding-top:100px;'>Erro ao carregar DICOM</h2>";
-
-        }
-
-    );
+}
 
 </script>
 
 <style>
-    .viewer-container {
 
-        width: 100%;
-    }
+.viewer-layout{
 
-    .viewer-header {
+    display:flex;
 
-        margin-bottom: 20px;
-    }
+    gap:20px;
+}
 
-    #dicomImage {
+.viewer-main{
 
-        width: 100%;
+    flex:4;
 
-        height: 700px;
+    overflow:auto;
 
-        background: #000;
+    background:black;
 
-        border-radius: 14px;
+    border-radius:14px;
 
-        border: 1px solid #333;
-    }
+    border:1px solid #333;
+
+    padding:20px;
+
+    text-align:center;
+}
+
+#dicomPreview{
+
+    max-width:100%;
+
+    transition:0.2s;
+}
+
+.viewer-sidebar{
+
+    flex:1;
+
+    background:#1d1d1d;
+
+    border:1px solid #333;
+
+    border-radius:14px;
+
+    padding:20px;
+}
+
+.btn-sidebar{
+
+    display:block;
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    background:#4f8cff;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    cursor:pointer;
+}
+
 </style>
 
 {% endblock %}

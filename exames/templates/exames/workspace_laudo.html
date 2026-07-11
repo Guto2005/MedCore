@@ -1,0 +1,263 @@
+{% extends 'exames/workspace_base.html' %}
+
+{% block content %}
+
+<div class="workspace">
+
+    <div class="toolbar">
+
+        <button>🔍 Zoom</button>
+        <button>✋ Pan</button>
+        <button>🌗 Window</button>
+        <button>📏 Medir</button>
+        <button>📐 Ângulo</button>
+        <button>📝 Texto</button>
+        <button>📋 Histórico</button>
+        <button>⛶ Fullscreen</button>
+
+    </div>
+
+    <div class="workspace-body">
+
+        <div class="series-panel">
+
+            <div class="series-scroll">
+
+                <div class="series-card">
+
+                    <img src="{% url 'preview_exame' exame.id %}">
+
+                    <span>
+                        Série Principal
+                    </span>
+
+                </div>
+
+                <div class="series-card">
+
+                    <img src="{% url 'preview_exame' exame.id %}">
+
+                    <span>
+                        Série Auxiliar
+                    </span>
+
+                </div>
+
+                <div class="series-card">
+
+                    <img src="{% url 'preview_exame' exame.id %}">
+
+                    <span>
+                        Reconstrução
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="viewer-panel">
+
+            <div class="overlay top-left">
+
+                {{ exame.paciente.nome }}
+
+            </div>
+
+            <div class="overlay top-right">
+
+                {{ modalidade }}
+
+            </div>
+
+            <div class="overlay bottom-left">
+
+                {{ rows }} x {{ columns }}
+
+            </div>
+
+            <div class="overlay bottom-right">
+
+                Slice 1/1
+
+            </div>
+
+            <div id="dicomImage"></div>
+
+        </div>
+
+        <div class="report-panel">
+
+            <h3>Paciente</h3>
+
+            <p>
+
+                {{ exame.paciente.nome }}
+
+            </p>
+
+            <hr>
+
+            <h2>Laudo Médico</h2>
+
+            <hr>
+
+            <p>
+                <strong>Paciente:</strong>
+                {{ exame.paciente.nome }}
+            </p>
+
+            <p>
+                <strong>Modalidade:</strong>
+                {{ modalidade }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ exame.get_status_display }}
+            </p>
+
+            <hr>
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <label>
+
+                    Achados
+
+                </label>
+
+                {{ form.diagnostico }}
+
+                <label>
+
+                    Observações
+
+                </label>
+
+                {{ form.observacoes }}
+
+                <div class="actions">
+
+                    <button type="submit" name="acao" value="rascunho">
+
+                        Salvar Rascunho
+
+                    </button>
+
+                    <button type="submit" name="acao" value="finalizar">
+
+                        Finalizar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="status-bar">
+
+        Modalidade:
+        {{ modalidade }}
+
+        |
+
+        Resolução:
+        {{ rows }}x{{ columns }}
+
+        |
+
+        Status:
+        {{ exame.get_status_display }}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        const element =
+            document.getElementById(
+                'dicomImage'
+            );
+
+        console.log(
+            'Elemento:',
+            element
+        );
+
+        cornerstone.enable(
+            element
+        );
+
+        const imageId =
+            'wadouri:' +
+            window.location.origin +
+            '{{ exame.arquivo.url }}';
+
+        console.log(
+            'ImageID:',
+            imageId
+        );
+
+        cornerstone.loadImage(
+            imageId
+        ).then(
+
+            function (image) {
+
+                console.log(
+                    'OBJETO IMAGE:',
+                    image
+                );
+
+                cornerstone.displayImage(
+                    element,
+                    image
+                );
+
+                cornerstone.fitToWindow(
+                    element
+                );
+
+                console.log(
+                    'DICOM carregado'
+                );
+
+            }
+
+        ).catch(
+
+            function (error) {
+
+                console.error(
+                    'ERRO:',
+                    error
+                );
+
+            }
+
+        );
+
+    }
+
+);
+
+</script>
+
+{% endblock %}

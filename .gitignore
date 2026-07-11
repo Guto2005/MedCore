@@ -14,5 +14,8 @@ db.sqlite3
 # VS Code
 .vscode/
 
+# Node
+node_modules/
+
 # Arquivos temporários
 *.log

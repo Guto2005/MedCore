@@ -5,12 +5,6 @@ from . import views
 urlpatterns = [
 
     path(
-        'detalhe/<int:id>/',
-        views.detalhe_exame,
-        name='detalhe_exame'
-    ),
-    
-       path(
         'inbox/',
         views.inbox_exames,
         name='inbox_exames'
@@ -29,9 +23,9 @@ urlpatterns = [
     ),
 
     path(
-        'detalhe/<int:id>/',
-        views.detalhe_exame,
-        name='detalhe_exame'
+        'workspace/<int:id>/',
+        views.workspace_laudo,
+        name='workspace_laudo'
     ),
     
     path(

@@ -81,7 +81,7 @@ def exames_finalizados(request):
     )
 
 
-def detalhe_exame(request, id):
+def workspace_laudo(request, id):
 
     exame = get_object_or_404(
         Exame,
@@ -119,28 +119,18 @@ def detalhe_exame(request, id):
 
                 exame.save()
 
-                messages.success(
-                    request,
-                    'Laudo finalizado com sucesso.'
-                )
-
                 return redirect(
                     'exames_finalizados'
                 )
 
-        exame.status = 'EM_LAUDO'
+            exame.status = 'EM_LAUDO'
 
-        exame.save()
+            exame.save()
 
-        messages.success(
-            request,
-            'Rascunho salvo com sucesso.'
-        )
-
-        return redirect(
-            'detalhe_exame',
-            id=exame.id
-        )
+            return redirect(
+                'workspace_laudo',
+                id=exame.id
+            )
 
     else:
 
@@ -149,20 +139,18 @@ def detalhe_exame(request, id):
         )
 
     ds = pydicom.dcmread(
-    exame.arquivo.path
-)
+        exame.arquivo.path
+    )
 
     return render(
         request,
-        'exames/detalhe.html',
+        'exames/workspace_laudo.html',
         {
             'exame': exame,
             'form': form,
-            'modalidade': str(
-                 ds.get(
-                    'Modality',
-                    'N/A'
-                )
+            'modalidade': ds.get(
+                'Modality',
+                'N/A'
             ),
             'rows': getattr(
                 ds,
@@ -175,7 +163,7 @@ def detalhe_exame(request, id):
                 None
             )
         }
-)
+    )
     
 def importar_exame(request):
 
@@ -273,7 +261,7 @@ def assumir_laudo(request, id):
         exame.save()
 
     return redirect(
-        'detalhe_exame',
+        'workspace_laudo',
         id=exame.id
     )
     

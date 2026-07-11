@@ -23,6 +23,16 @@
 
     </div>
 
+    <div style="margin-bottom:20px;">
+
+        <a href="{% url 'visualizar_dicom' exame.id %}" class="btn-visualizar" target="_blank">
+
+            Abrir Visualizador DICOM
+
+        </a>
+
+    </div>
+
     <div class="imagem-area">
 
         <img src="{% url 'preview_exame' exame.id %}" class="dicom-preview">
@@ -131,6 +141,21 @@
         border-radius: 8px;
 
         cursor: pointer;
+    }
+
+    .btn-visualizar {
+
+        background: #4f8cff;
+
+        color: white;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 8px;
+
+        display: inline-block;
     }
 
     .btn-voltar {
