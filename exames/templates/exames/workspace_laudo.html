@@ -2,18 +2,152 @@
 
 {% block content %}
 
+<style>
+
+    .toolbar {
+
+        justify-content: space-between;
+    }
+
+    .toolbar-group {
+
+        display: flex;
+
+        gap: 8px;
+
+        align-items: center;
+    }
+
+    .toolbar-divider {
+
+        width: 1px;
+
+        height: 26px;
+
+        background: #333;
+    }
+
+    .toolbar button.tool-btn {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 6px;
+    }
+
+    .toolbar button.tool-btn.tool-ativa {
+
+        background: #4f8cff;
+
+        border-color: #4f8cff;
+
+        color: #0b1622;
+
+        font-weight: 600;
+    }
+
+    .toolbar button.tool-btn.tool-ativa:hover {
+
+        background: #3f7de0;
+    }
+
+    .toolbar button:disabled {
+
+        opacity: 0.4;
+
+        cursor: not-allowed;
+    }
+
+    .toolbar button:disabled:hover {
+
+        background: #2b2b2b;
+    }
+
+    .series-card.series-card-atual {
+
+        border-color: #4f8cff;
+    }
+
+    .series-card small {
+
+        display: block;
+
+        color: #888;
+
+        font-size: 11px;
+
+        margin-top: 2px;
+    }
+
+    .modo-consulta-aviso {
+
+        background: #332b00;
+
+        border: 1px solid #ffd84d;
+
+        color: #ffd84d;
+
+        padding: 10px 12px;
+
+        border-radius: 8px;
+
+        font-size: 13px;
+
+        margin-bottom: 15px;
+    }
+
+    .laudo-readonly label {
+
+        display: block;
+
+        margin-top: 12px;
+
+        margin-bottom: 4px;
+
+        font-size: 13px;
+
+        color: #999;
+    }
+
+    .readonly-box {
+
+        background: #111;
+
+        border: 1px solid #333;
+
+        border-radius: 8px;
+
+        padding: 10px;
+
+        white-space: pre-wrap;
+
+        min-height: 40px;
+    }
+
+</style>
+
 <div class="workspace">
 
     <div class="toolbar">
 
-        <button>🔍 Zoom</button>
-        <button>✋ Pan</button>
-        <button>🌗 Window</button>
-        <button>📏 Medir</button>
-        <button>📐 Ângulo</button>
-        <button>📝 Texto</button>
-        <button>📋 Histórico</button>
-        <button>⛶ Fullscreen</button>
+        <div class="toolbar-group">
+
+            <button type="button" class="tool-btn" data-tool="Wwwc" title="Window/Level">🌗 Window</button>
+            <button type="button" class="tool-btn" data-tool="Zoom" title="Zoom">🔍 Zoom</button>
+            <button type="button" class="tool-btn" data-tool="Pan" title="Pan">✋ Pan</button>
+            <button type="button" class="tool-btn" data-tool="Length" title="Medir distância">📏 Medir</button>
+            <button type="button" class="tool-btn" data-tool="Angle" title="Medir ângulo">📐 Ângulo</button>
+            <button type="button" class="tool-btn" data-tool="ArrowAnnotate" title="Anotação de texto">📝 Texto</button>
+
+        </div>
+
+        <div class="toolbar-group">
+
+            <button type="button" id="btnHistorico" disabled title="Histórico do Paciente (Entrega 3)">📋 Histórico</button>
+            <button type="button" id="btnFullscreen" title="Tela cheia">⛶ Fullscreen</button>
+
+        </div>
 
     </div>
 
@@ -23,33 +157,13 @@
 
             <div class="series-scroll">
 
-                <div class="series-card">
+                <div class="series-card series-card-atual">
 
                     <img src="{% url 'preview_exame' exame.id %}">
 
-                    <span>
-                        Série Principal
-                    </span>
+                    <span>{{ exame.tipo_exame }}</span>
 
-                </div>
-
-                <div class="series-card">
-
-                    <img src="{% url 'preview_exame' exame.id %}">
-
-                    <span>
-                        Série Auxiliar
-                    </span>
-
-                </div>
-
-                <div class="series-card">
-
-                    <img src="{% url 'preview_exame' exame.id %}">
-
-                    <span>
-                        Reconstrução
-                    </span>
+                    <small>1 imagem</small>
 
                 </div>
 
@@ -77,7 +191,7 @@
 
             </div>
 
-            <div class="overlay bottom-right">
+            <div class="overlay bottom-right" id="sliceCounter">
 
                 Slice 1/1
 
@@ -120,6 +234,18 @@
 
             <hr>
 
+            {% if not pode_editar %}
+
+            <div class="modo-consulta-aviso">
+
+                🔒 Modo consulta — este exame já foi finalizado. Edição desabilitada nesta versão (salvaguarda temporária, ver MedCore LAB).
+
+            </div>
+
+            {% endif %}
+
+            {% if pode_editar %}
+
             <form method="post">
 
                 {% csrf_token %}
@@ -157,6 +283,22 @@
                 </div>
 
             </form>
+
+            {% else %}
+
+            <div class="laudo-readonly">
+
+                <label>Achados</label>
+
+                <div class="readonly-box">{{ laudo.diagnostico|default:"—" }}</div>
+
+                <label>Observações</label>
+
+                <div class="readonly-box">{{ laudo.observacoes|default:"—" }}</div>
+
+            </div>
+
+            {% endif %}
 
         </div>
 
@@ -196,11 +338,6 @@ document.addEventListener(
                 'dicomImage'
             );
 
-        console.log(
-            'Elemento:',
-            element
-        );
-
         cornerstone.enable(
             element
         );
@@ -210,21 +347,16 @@ document.addEventListener(
             window.location.origin +
             '{{ exame.arquivo.url }}';
 
-        console.log(
-            'ImageID:',
-            imageId
-        );
+        // Preparado para múltiplos slices reais no futuro.
+        // Hoje cada exame tem 1 único arquivo DICOM (NumberOfFrames=1),
+        // então a stack sempre terá 1 imagem — Slice 1/1 é o dado real, não fake.
+        const imageIds = [imageId];
 
         cornerstone.loadImage(
             imageId
         ).then(
 
             function (image) {
-
-                console.log(
-                    'OBJETO IMAGE:',
-                    image
-                );
 
                 cornerstone.displayImage(
                     element,
@@ -235,9 +367,66 @@ document.addEventListener(
                     element
                 );
 
-                console.log(
-                    'DICOM carregado'
-                );
+                // --- Registro das ferramentas Cornerstone (uma vez) ---
+                cornerstoneTools.addTool(cornerstoneTools.WwwcTool);
+                cornerstoneTools.addTool(cornerstoneTools.ZoomTool);
+                cornerstoneTools.addTool(cornerstoneTools.PanTool);
+                cornerstoneTools.addTool(cornerstoneTools.LengthTool);
+                cornerstoneTools.addTool(cornerstoneTools.AngleTool);
+                cornerstoneTools.addTool(cornerstoneTools.ArrowAnnotateTool);
+                cornerstoneTools.addTool(cornerstoneTools.StackScrollMouseWheelTool);
+
+                const FERRAMENTAS_EXCLUSIVAS = [
+                    'Wwwc', 'Zoom', 'Pan', 'Length', 'Angle', 'ArrowAnnotate'
+                ];
+
+                function ativarFerramenta(nome, botao) {
+
+                    FERRAMENTAS_EXCLUSIVAS.forEach(function (t) {
+                        cornerstoneTools.setToolPassive(t);
+                    });
+
+                    cornerstoneTools.setToolActive(nome, { mouseButtonMask: 1 });
+
+                    document.querySelectorAll('.toolbar button[data-tool]').forEach(function (b) {
+                        b.classList.remove('tool-ativa');
+                    });
+
+                    botao.classList.add('tool-ativa');
+                }
+
+                document.querySelectorAll('.toolbar button[data-tool]').forEach(function (botao) {
+                    botao.addEventListener('click', function () {
+                        ativarFerramenta(botao.dataset.tool, botao);
+                    });
+                });
+
+                // Ferramenta ativa por padrão ao abrir o Workspace
+                const botaoPadrao = document.querySelector('.toolbar button[data-tool="Wwwc"]');
+                if (botaoPadrao) {
+                    ativarFerramenta('Wwwc', botaoPadrao);
+                }
+
+                // --- Scroll entre slices (mouse wheel) ---
+                cornerstoneTools.addStackStateManager(element, ['stack']);
+                cornerstoneTools.addToolState(element, 'stack', {
+                    currentImageIdIndex: 0,
+                    imageIds: imageIds
+                });
+                cornerstoneTools.setToolActive('StackScrollMouseWheel', {});
+
+                // --- Slice counter real ---
+                function atualizarSliceCounter() {
+                    const stackData = cornerstoneTools.getToolState(element, 'stack');
+                    if (!stackData || !stackData.data.length) return;
+                    const stack = stackData.data[0];
+                    document.getElementById('sliceCounter').textContent =
+                        'Slice ' + (stack.currentImageIdIndex + 1) + '/' + stack.imageIds.length;
+                }
+
+                atualizarSliceCounter();
+
+                element.addEventListener('cornerstonenewimage', atualizarSliceCounter);
 
             }
 
@@ -253,6 +442,25 @@ document.addEventListener(
             }
 
         );
+
+        // Fullscreen — ação simples do navegador, não é tool do Cornerstone
+        const btnFullscreen = document.getElementById('btnFullscreen');
+
+        if (btnFullscreen) {
+
+            btnFullscreen.addEventListener('click', function () {
+
+                const ws = document.querySelector('.workspace');
+
+                if (!document.fullscreenElement) {
+                    ws.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+
+            });
+
+        }
 
     }
 

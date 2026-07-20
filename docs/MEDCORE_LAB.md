@@ -1,16 +1,18 @@
 # MEDCORE_LAB.md
 
-## Função
+# Função
 
-Laboratório de ideias.
+Laboratório oficial de pesquisa, experimentação e evolução do MedCore.
 
-## Pergunta que este arquivo responde
+Este documento responde à pergunta:
 
-**"O que está sendo investigado?"**
+> **"O que está sendo estudado, investigado ou planejado para o futuro do MedCore?"**
 
-Nada neste arquivo é regra oficial. Tudo deve ser analisado antes de migrar para o `MEDCORE_CORE_CONTEXT.md`.
+Nenhuma informação contida neste documento representa regra oficial do projeto até passar pelo processo de validação e promoção para o `MEDCORE_CORE_CONTEXT.md`.
 
-## Fluxo
+---
+
+# Fluxo Oficial de Evolução
 
 ```text
 IDEIA
@@ -19,478 +21,941 @@ LAB
  ↓
 ANÁLISE
  ↓
+VALIDAÇÃO TÉCNICA
+ ↓
+VALIDAÇÃO COM USUÁRIOS
+ ↓
 DECISÃO
 
-      ↙      ↘
+      ↙          ↘
 
-REPROVADO   APROVADO
-     ↓          ↓
- Arquivado   CORE_CONTEXT
+REPROVADO     APROVADO
+     ↓             ↓
+ Arquivado     CORE_CONTEXT
 ```
 
-> Nota: no documento original a data registrada era **10/07/2026**, não 11/07 — mantive a data real do arquivo.
+O objetivo desse fluxo é impedir que decisões arquiteturais sejam tomadas apenas porque parecem interessantes tecnicamente.
 
-## Regra de Promoção LAB → CONTEXT
-
-Sempre que uma ideia for promovida do LAB para o `MEDCORE_CORE_CONTEXT.md`, o registro de promoção deve conter obrigatoriamente:
-
-1. **Qual problema real ela resolve** (não "parecia interessante tecnicamente").
-2. **Quem solicitou** a funcionalidade (Gustavo, Dr. Cristiano, outro usuário real, etc.).
-3. **Por que entrou no roadmap** naquele momento específico.
-
-Isso preserva não só a decisão, mas o raciocínio que levou a ela — para que qualquer pessoa (ou IA) lendo o histórico depois entenda o "porquê", não só o "o quê".
-
-## Filosofia de Evolução (regra de aceite de qualquer ideia nova)
-
-Toda funcionalidade nova deve resolver um problema real identificado por médicos, secretárias, administradores ou outros profissionais da saúde — não deve ser implementada apenas por parecer interessante tecnicamente. Antes de entrar no planejamento oficial, precisa agregar valor comprovado ao fluxo de trabalho e, sempre que possível, ser validada com usuários reais. O MedCore cresce priorizando qualidade e utilidade prática, não quantidade de funcionalidades.
+Toda evolução deve possuir justificativa operacional.
 
 ---
 
+# Filosofia do LAB
 
-Ideias Futuras do MedCore (Backlog Estratégico)
-Objetivo
+O LAB existe para preservar ideias.
 
-Esta seção registra funcionalidades, módulos e diferenciais pensados para o futuro do MedCore.
+Nem toda boa ideia deve virar código.
 
-Importante: estas ideias não fazem parte da prioridade atual de desenvolvimento. Elas existem para preservar a visão de longo prazo do projeto e evitar que boas ideias sejam esquecidas.
+Toda proposta registrada neste documento deve responder obrigatoriamente:
 
-A prioridade permanece concluir um MVP sólido para validação com o primeiro médico usuário (Dr. Cristiano).
+- Qual problema ela resolve?
+- Quem sofre esse problema?
+- Existe validação com usuário real?
+- Ela reduz tempo?
+- Ela reduz erros?
+- Ela reduz retrabalho?
+- Ela reduz troca de sistemas?
+- Vale o custo de manutenção que adicionará ao projeto?
 
-Prioridade Atual (MedCore 1.5)
-Objetivo Principal
+Caso essas perguntas não possam ser respondidas, a ideia permanece em estudo.
 
-Finalizar a estação de trabalho de radiologia (Workspace Médico) até um nível utilizável em ambiente real.
+---
 
-Escopo
-Finalizar integração completa do Cornerstone;
-Implementar visualização correta de estudos DICOM;
-Navegação entre slices;
-Painel de séries dinâmico;
-Ferramentas básicas (Zoom, Pan, Window/Level);
-Campo de laudo integrado ao visualizador;
-Fluxo completo:
-Inbox
+# Regra de Promoção LAB → CORE_CONTEXT
 
-↓
+Sempre que uma ideia for promovida para o CORE_CONTEXT deverá ser registrado:
 
-Selecionar exame
+## Problema resolvido
 
-↓
+Qual necessidade real motivou a implementação.
 
-Abrir Workspace
+Nunca utilizar justificativas como:
 
-↓
+> "Parecia interessante."
 
-Visualizar DICOM
+ou
 
-↓
+> "Outros sistemas possuem."
 
-Realizar Laudo
+---
 
-↓
+## Origem da solicitação
 
-Salvar
-
-↓
-
-Finalizar exame
-
-Nenhum novo módulo deverá atrasar esta etapa.
-
-O foco absoluto é entregar uma estação de laudo funcional para validação com o Dr. Cristiano.
-
-Backlog Estratégico
-1. Módulo Financeiro Integrado
-
-Inspirado na necessidade observada durante o fluxo de trabalho do Dr. Cristiano.
-
-Objetivo
-
-Eliminar sistemas separados para controle financeiro.
-
-Ao finalizar um laudo, o MedCore deverá registrar automaticamente:
-
-Médico responsável;
-Procedimento;
-Convênio;
-Valor;
-Hospital;
-Data;
-Produção médica.
-
-Posteriormente será possível gerar:
-
-Relatórios;
-PDF;
-Excel;
-Demonstrativos mensais;
-Fechamento financeiro.
-
-O médico apenas lauda.
-
-O sistema realiza toda a contabilização automaticamente.
-
-2. Cadastro de Procedimentos
-
-Cada procedimento poderá possuir:
-
-Código TUSS;
-Nome;
-Categoria;
-Valor Particular;
-Valor Convênio;
-Valor SUS;
-Especialidade.
-3. Cadastro de Convênios
-
-Tabela própria contendo:
-
-Operadora;
-Valores específicos;
-Regras de cobrança.
-4. Dashboard Financeiro
-
-Indicadores por:
-
-Médico;
-Hospital;
-Período;
-Convênio;
-Modalidade;
-Receita;
-Impostos;
-Produção.
-5. Odontologia
-
-Novo módulo especializado para exames odontológicos.
+Registrar quem motivou a implementação.
 
 Exemplos:
 
-Tomografia Cone Beam (CBCT);
-Radiografia panorâmica;
-Telerradiografia;
-Modelos 3D;
-Planejamento de implantes.
-6. Expansão para outras especialidades
-
-Após validação da radiologia:
-
-Cardiologia;
-Neurologia;
-Ortopedia;
-Dermatologia;
-Patologia;
-Outras áreas médicas.
-Filosofia do Produto
-
-O MedCore não pretende apenas ser um visualizador DICOM.
-
-O objetivo é tornar-se uma plataforma integrada para profissionais da saúde, unificando:
-
-Visualização de exames;
-Laudos;
-Gestão de pacientes;
-Gestão médica;
-Financeiro;
-Relatórios;
-Administração.
-
-Cada novo módulo deverá reduzir o número de sistemas utilizados pelos profissionais, concentrando o fluxo de trabalho em uma única plataforma.
-
-Roadmap Simplificado
-MedCore 1.5
-↓
-Workspace Médico completo
-(Cornerstone + Laudo)
-
-↓
-
-Validação com Dr. Cristiano
-
-↓
-
-Primeiro uso real
-
-↓
-
-Correções
-
-↓
-
-MedCore 2.0
-
-↓
-
-Financeiro integrado
-
-↓
-
-Dashboard
-
-↓
-
-Odontologia
-
-↓
-
-Expansão para novas especialidades
-
-↓
-
-SaaS Multi-hospital
-
+- Gustavo
+- Dr. Cristiano
+- Secretária
+- Diretor Hospitalar
+- Usuário piloto
+- Outro profissional
 
 ---
 
-## LAB #009 - Campos Estruturados em Exame/Laudo (Região Anatômica, Prioridade, Médico Responsável)
+## Motivo da aprovação
 
-**Origem:** discussão sobre o card de Histórico do Paciente no Workspace de Laudagem (11/07/2026).
+Explicar por que aquela funcionalidade entrou exatamente naquele momento do roadmap.
 
-**Contexto:** ao desenhar o card de histórico, ficou claro que hoje `Exame` só tem `tipo_exame` (texto livre) e `Laudo` não tem nenhum vínculo com o médico que o escreveu. Isso é suficiente pro card funcionar agora, mas limita indicadores futuros (ex: filtrar por prioridade, saber quem laudou sem abrir o laudo).
-
-**Proposta:**
-- `Exame.regiao_anatomica` (opcional, estruturado)
-- `Exame.prioridade` (opcional — ex: Rotina/Urgente/Emergência)
-- `Laudo.medico` (FK para `Medico`, nullable)
-
-**Por que não entrou na 1.5:** aumentaria o escopo da entrega atual sem resolver um problema real e urgente hoje — o `tipo_exame` já cobre a necessidade imediata do card de histórico.
-
-**Status:** A AVALIAR
+Esse histórico preserva o raciocínio arquitetural do projeto.
 
 ---
 
-## LAB #010 - Edição de Laudo Finalizado + Trilha de Auditoria
+# Filosofia de Evolução
 
-**Origem:** discussão sobre a tela read-only de exame antigo, no fluxo do Histórico do Paciente (11/07/2026).
+O MedCore cresce resolvendo problemas reais.
 
-**Problema identificado:** bloquear completamente a edição de um laudo já finalizado pode gerar retrabalho real — médicos às vezes precisam corrigir um laudo depois de finalizado (e muitos laudos já foram exportados/impressos até esse ponto). Uma regra rígida de "nunca editar" não reflete o fluxo de trabalho real.
+Não cresce acumulando funcionalidades.
 
-**Proposta para versão futura:**
-- Workspace operando em dois modos: **Edição** e **Consulta**.
-- Somente o médico responsável pelo laudo pode editá-lo após finalizado.
-- Toda alteração pós-finalização gera um registro de auditoria contendo, no mínimo:
-  - Quem realizou a alteração;
-  - Quando foi realizada;
-  - O que foi alterado;
-  - Versão anterior do laudo;
-  - Motivo da alteração (configurável conforme a política de cada hospital).
+Toda implementação deve aumentar pelo menos um destes indicadores:
 
-**Por que não entrou na 1.5:** é uma regra de negócio sensível (mexe com integridade de laudo médico/legal) que merece discussão própria, não uma decisão tomada de passagem dentro de outra entrega.
+- produtividade;
+- segurança;
+- simplicidade;
+- integração;
+- qualidade da experiência do profissional.
 
-**Status:** A AVALIAR — nenhuma regra de bloqueio de edição será implementada na 1.5.
+Sempre que possível, validar com usuários reais antes da implementação.
 
 ---
 
-## Ideias em Avaliação — Versão 1.6
+# Visão Estratégica do Produto
 
-**Registradas em 11/07/2026.** Todas marcadas "A Avaliar" — nenhuma tem compromisso de implementação imediata e nenhuma deve aumentar o escopo da 1.5.
+O MedCore não pretende ser apenas um visualizador DICOM.
 
-> Nota: esta lista expande e formaliza a seção "Regras de Negócio Planejadas" já registrada mais abaixo neste arquivo — não a substitui, ambas continuam válidas como registro histórico da mesma linha de raciocínio.
+A visão de longo prazo é tornar-se uma plataforma hospitalar completa, capaz de integrar:
 
-- **RBAC completo e configurável por hospital**: sistema de autenticação e permissões baseado em papéis, onde cada hospital pode configurar quais funcionalidades cada cargo enxerga/usa. Permissões não devem ficar fixas no código.
-- **Perfis padrão iniciais**: Administrador, Diretor, Médico, Secretária — com possibilidade de adicionar novos cargos futuramente.
-- **Estrutura Multi-Hospital com isolamento completo**: cada instituição vê apenas seus próprios pacientes, exames, usuários, configurações e dados administrativos.
-- **Médico em múltiplos hospitais**: um mesmo médico pode atender vários hospitais, recebendo exames de instituições diferentes num único Workspace, respeitando as regras de permissão de cada uma.
-- **Configuração de servidores de origem dos exames** (integrações futuras).
-- **Fluxo de edição de laudos com auditoria completa** — ver LAB #010.
-- **Versionamento de laudos** — ver LAB #010.
-- **Workspace em dois modos (Edição / Consulta)** — ver LAB #010.
-- **Revisão da modelagem do Exame** (região anatômica, prioridade, médico responsável, outros atributos a identificar) — ver LAB #009.
+- PACS
+- RIS
+- Workspace Médico
+- Gestão de Laudos
+- Auditoria
+- Indicadores Operacionais
+- Financeiro
+- Multi-Hospital
+- Portal do Cliente
 
----
-
-## Regras de Negócio Planejadas (Permissões, Multi-Hospital, Financeiro)
-
-> Estas regras descrevem um sistema de hospitais múltiplos, perfis (Diretor, Financeiro) e módulo financeiro que **ainda não existem** nos apps atuais do MedCore (`usuarios`, `medicos`, `pacientes`, `atendimentos`, `consultas`, `secretarias`, `dashboard`, `exames`). Por isso ficam no LAB até serem implementadas e migradas para o CORE_CONTEXT.
-
-# Estrutura de Hospitais
-
-O sistema deve permitir múltiplos hospitais.
-
-Cada hospital possui:
-
-* Nome.
-* Identificação.
-* Configurações de integração.
-* Médicos vinculados.
-
-Relacionamento:
-
-* Um hospital pode possuir vários médicos.
-* Um médico pode atuar em vários hospitais.
-
-Modelo conceitual:
-
-Hospital ↔ Médico
-
-Relacionamento muitos-para-muitos.
+O objetivo é reduzir drasticamente a quantidade de softwares utilizados por clínicas e hospitais.
 
 ---
 
-# Estrutura de Usuários
+# Roadmap Estratégico
 
-O sistema deve possuir separação de funções e permissões.
+## Fase 1.5 — Workspace Médico (MVP Comercial)
 
-Perfis previstos:
+### Objetivo
 
-## Administrador
+Entregar uma estação de trabalho de radiologia utilizável em ambiente real para validação com o Dr. Cristiano.
 
-Possui acesso total.
-
-Responsabilidades:
-
-* Gerenciar usuários.
-* Gerenciar hospitais.
-* Gerenciar integrações.
-* Gerenciar permissões.
-* Configurações gerais do sistema.
+Nenhum novo módulo deve atrasar essa entrega.
 
 ---
 
-## Diretor
+## Visualização DICOM
 
-Possui visão gerencial.
+Implementado
 
-Responsabilidades:
+- Cornerstone
+- Renderização DICOM
+- Upload
+- Preview PNG
 
-* Visualizar indicadores.
-* Visualizar produção médica.
-* Visualizar relatórios financeiros.
-* Visualizar estatísticas dos hospitais sob sua gestão.
+Em evolução
 
-Não deve alterar laudos médicos.
+- Zoom
+- Pan
+- Window / Level
+- Scroll entre slices
+- Ferramentas de medição
+- Histórico do paciente
+- Navegação segura
 
 ---
 
-## Médico
+## Ferramentas previstas
 
-Responsabilidades:
+Visualização
 
-* Receber exames.
-* Visualizar inbox autorizado.
-* Elaborar laudos.
-* Assinar laudos.
-* Acompanhar produção financeira própria.
+- Zoom
+- Pan
+- Window / Level
+- Scroll
+- Fullscreen
 
-Restrições:
+Medição
 
-* Não visualizar dados de outros médicos.
-* Não acessar hospitais sem vínculo.
+- Distância
+- Ângulo
+- Texto
+
+Melhorias estudadas
+
+- Reset View
+- Fit to Screen
+- Inverter cores
+- Rotação
+- Flip Horizontal
+- Flip Vertical
+
+Essas funcionalidades serão avaliadas conforme necessidade observada durante os testes clínicos.
+
+---
+
+## Navegação entre Slices
+
+Objetivos
+
+- Scroll do mouse
+- Próximo slice
+- Slice anterior
+- Slider
+- Navegação por teclado
+- Contador real
+
+Exemplo
+
+```text
+1 / 532
+2 / 532
+...
+532 / 532
+```
+
+---
+
+## Estudos DICOM
+
+Arquitetura desejada
+
+```text
+Exame
+
+↓
+
+Estudo
+
+↓
+
+Axial
+Coronal
+Sagital
+Reconstruções
+
+↓
+
+Centenas de slices
+```
+
+O usuário navega pelas séries.
+
+Não por centenas de miniaturas.
+
+---
+
+## Painel de Séries
+
+Inspirado em PACS comerciais.
+
+Estrutura desejada
+
+```text
+┌────────────────────┐
+│ TC Crânio          │
+│ Preview            │
+│ 300 imagens        │
+└────────────────────┘
+```
+
+Cada série abre no Viewer principal.
+
+---
+
+## Ferramentas de Medição
+
+Implementadas
+
+- Distância
+- Ângulo
+- Texto
+
+Em estudo
+
+- ROI Circular
+- ROI Retangular
+- ROI Livre
+- Área
+- Estatísticas
+- Densidade (HU)
+
+Essas ferramentas somente entram após validação da necessidade clínica.
+
+---
+
+## Presets Radiológicos
+
+Estudo futuro.
+
+Botões rápidos.
+
+Exemplos
+
+- Pulmão
+- Osso
+- Cérebro
+- Abdome
+- Tecido Mole
+
+Objetivo
+
+Aplicar automaticamente Window/Level apropriado.
+
+---
+
+## Produtividade Médica
+
+Ideias atualmente em avaliação
+
+### HUD Inteligente
+
+Exibir continuamente
+
+- Zoom
+- Slice
+- Window
+- Level
+
+Objetivo
+
+Dar feedback visual imediato ao médico.
+
+---
+
+### Atalhos
+
+Exemplos
+
+Ctrl + Scroll → Zoom
+
+Scroll → Navegação entre slices
+
+Ctrl + S → Salvar
+
+Ctrl + Enter → Finalizar
+
+Objetivo
+
+Reduzir quantidade de cliques.
+
+---
+
+### Navegação Segura
+
+Estudos atuais
+
+- Botão Voltar
+- Botão Cancelar
+- Confirmação de saída
+- beforeunload
+- Detecção de alterações não salvas
+
+Objetivo
+
+Eliminar perda acidental de laudos.
+
+---
+
+### Auto Save
+
+Em estudo.
+
+Salvar automaticamente:
+
+- por tempo
+- troca de série
+- troca de exame
+
+Objetivo
+
+Evitar perda de trabalho.
+
+---
+
+### Comparação de Exames
+
+Fluxo desejado
+
+Histórico
+
+↓
+
+Selecionar exame anterior
+
+↓
+
+Abrir nova guia
+
+↓
+
+Comparação lado a lado
+
+Objetivo
+
+Permitir avaliação da evolução clínica.
+
+Esse diferencial nasceu da necessidade observada durante o desenho do Workspace Médico e deverá ser validado com o Dr. Cristiano antes de se tornar comportamento definitivo.
+
+---
+
+## Testes de Estresse
+
+Meta mínima
+
+- 500 slices
+- 1000 slices
+- 2000 slices
+
+Objetivo
+
+Garantir estabilidade antes da comercialização.
+
+---
+
+# Fase 1.6 — Produtividade Médica
+
+Objetivo
+
+Reduzir tempo de laudagem.
+
+Possíveis funcionalidades
+
+- Templates de laudo
+- Histórico de versões
+- Adendos
+- Workspace em modo Consulta/Edição
+- Auditoria inicial
+- Anotações persistentes
+- Cine Mode
+- Atalhos de teclado
+- Salvamento inteligente
+
+Todas essas funcionalidades permanecem em avaliação e somente entrarão após conclusão da versão 1.5.
+
+# Fase 1.7 — Auditoria e Conformidade
+
+## Objetivo
+
+Garantir rastreabilidade completa das ações realizadas dentro do sistema.
+
+Nenhuma alteração clínica importante deve ocorrer sem possibilidade de auditoria.
+
+---
+
+## Auditoria
+
+Registrar automaticamente:
+
+- quem criou;
+- quem editou;
+- quem visualizou;
+- quem finalizou.
+
+Informações mínimas:
+
+- usuário;
+- data;
+- horário;
+- endereço IP (quando aplicável);
+- estação de trabalho (quando aplicável).
+
+---
+
+## Histórico de Eventos
+
+Exemplo:
+
+```text
+08:12 Exame recebido
+
+08:25 Médico abriu exame
+
+08:41 Laudo salvo
+
+08:47 Laudo finalizado
+
+08:49 Impressão realizada
+
+08:55 Download realizado
+```
+
+Objetivo:
+
+Permitir rastreabilidade completa do exame.
+
+---
+
+## Controle de Permissões
+
+Perfis previstos
+
+- Administrador
+- Diretor
+- Médico
+- Secretária
+- Financeiro
+
+O modelo definitivo permanece em estudo.
+
+---
+
+# Fase 1.8 — Gestão Operacional
+
+## Objetivo
+
+Transformar o MedCore em uma ferramenta de gestão para coordenadores e diretores.
+
+---
+
+## Dashboard Operacional
+
+Indicadores previstos
+
+- Exames do dia
+- Pendentes
+- Em laudagem
+- Finalizados
+- Urgentes
+
+---
+
+## Indicadores
+
+Exemplos
+
+- Tempo médio de laudo
+- Tempo médio de espera
+- Produção por médico
+- Produção por unidade
+- SLA
+- Exames críticos
+
+---
+
+## Fila Operacional
+
+Estados previstos
+
+Recebido
+
+↓
+
+Distribuído
+
+↓
+
+Em análise
+
+↓
+
+Em laudagem
+
+↓
+
+Finalizado
+
+↓
+
+Entregue
+
+---
+
+# Fase 2.0 — Plataforma Comercial
+
+## Objetivo
+
+Transformar o MedCore em um produto comercial completo.
 
 ---
 
 ## Financeiro
 
-Responsabilidades:
+Objetivo
 
-* Consultar faturamento.
-* Consultar pagamentos.
-* Gerar relatórios financeiros.
-* Acompanhar produção médica.
+Eliminar sistemas paralelos para gestão financeira.
 
-Não possui acesso clínico desnecessário.
+Relacionamentos previstos
+
+Exame
+
+↓
+
+Laudo
+
+↓
+
+Médico
+
+↓
+
+Pagamento
+
+↓
+
+Repasse
+
+Indicadores
+
+- Produção médica
+- Valor por laudo
+- Faturamento
+- Custos
+- Receita líquida
 
 ---
 
-# Sistema de Inbox
+## Multi-Hospital
 
-O inbox é individual e controlado por permissões.
+Estrutura prevista
 
-Regras:
+Hospital A
 
-* Cada médico visualiza apenas os exames destinados a ele.
-* O sistema deve impedir acesso cruzado.
-* Hospitais podem direcionar exames para médicos específicos.
+Hospital B
 
-Configuração prevista:
+Hospital C
 
-Cada médico poderá definir:
-
-* Hospitais autorizados.
-* Destino de importação DICOM.
-* Preferências operacionais.
+Cada instituição deve possuir isolamento completo dos próprios dados.
 
 ---
 
-# Fluxo de Exames e Laudos
+## Portal do Cliente
 
-Fluxo principal:
+Estudos futuros
 
-DICOM recebido
-↓
-Inbox do médico autorizado
-↓
-Análise médica
-↓
-Criação do laudo
-↓
-Assinatura
-↓
-Registro financeiro
+Permitir
 
-O laudo é o núcleo operacional do sistema.
+- download de laudos;
+- consulta de exames;
+- histórico do paciente.
+
+---
+
+## Assinatura Digital
+
+Integração futura com
+
+- ICP-Brasil
+- Certificados médicos
+
+---
+
+# Fase 2.5 — PACS Avançado
+
+## Comparação de Exames
+
+Visualização simultânea
+
+```text
+Exame Atual
+
+|
+
+Exame Anterior
+```
+
+Objetivo
+
+Facilitar avaliação da evolução clínica.
+
+---
+
+## MPR
+
+Reconstruções
+
+- Axial
+- Coronal
+- Sagital
+
+Geradas dinamicamente.
+
+---
+
+## Reconstrução 3D
+
+Visualização volumétrica.
+
+---
+
+## Sincronização de Viewers
+
+Mover vários exames simultaneamente.
+
+---
+
+## Estudos Históricos
+
+Permitir comparação da evolução clínica durante anos.
+
+---
+
+# LAB #009 — Campos Estruturados do Exame
+
+Status
+
+A avaliar.
+
+Proposta
+
+Adicionar ao Exame
+
+- região anatômica;
+- prioridade;
+- modalidade estruturada.
+
+Adicionar ao Laudo
+
+- médico responsável.
+
+Objetivo
+
+Melhorar filtros, indicadores e histórico clínico.
+
+---
+
+# LAB #010 — Auditoria e Reedição de Laudos
+
+Status
+
+A avaliar.
+
+Objetivo
+
+Permitir reedição controlada de laudos finalizados.
+
+Fluxo proposto
+
+Workspace
+
+↓
+
+Modo Consulta
+
+↓
+
+Solicitação de edição
+
+↓
+
+Nova versão
+
+↓
+
+Registro de auditoria
+
+Toda alteração deverá registrar
+
+- usuário;
+- data;
+- motivo;
+- versão anterior;
+- versão nova.
+
+---
+
+## Decisão Temporária da Versão 1.5
+
+Enquanto o fluxo definitivo não existir
+
+Workspace de exames FINALIZADOS abre em modo consulta.
+
+Viewer permanece totalmente funcional.
+
+Campos de edição permanecem bloqueados.
+
+Essa decisão deverá ser removida quando o fluxo definitivo de auditoria for implementado.
+
+---
+
+# Ideias em Investigação
+
+As ideias abaixo ainda não possuem prioridade oficial.
+
+Permanecem em estudo.
+
+## Inteligência Artificial
+
+Possibilidades
+
+- auxílio à escrita do laudo;
+- organização automática de exames;
+- identificação de inconsistências;
+- apoio ao preenchimento de templates.
+
+Nenhuma decisão de implementação foi tomada.
+
+---
+
+## Workspace Inteligente
+
+Possíveis funcionalidades
+
+- lembrar ferramentas favoritas;
+- restaurar sessão anterior;
+- layouts personalizáveis;
+- presets por modalidade.
+
+---
+
+## Produtividade
+
+Ideias futuras
+
+- comandos rápidos;
+- pesquisa universal;
+- favoritos;
+- abertura dos exames mais recentes.
+
+---
+
+## Dashboard Médico
+
+Possibilidades
+
+- exames concluídos;
+- tempo médio;
+- produtividade diária;
+- histórico pessoal.
+
+---
+
+# Estrutura Multi-Hospital
+
+Em estudo.
+
+Objetivos
+
+Cada hospital poderá possuir
+
+- médicos;
+- usuários;
+- configurações;
+- integrações;
+- indicadores.
+
+Um médico poderá atuar em múltiplos hospitais.
+
+Sempre respeitando permissões individuais.
 
 ---
 
 # Sistema Financeiro
 
-O financeiro depende diretamente da produção de laudos.
+Em estudo.
 
-Objetivos:
+Objetivos
 
-* Calcular quantidade de laudos produzidos.
-* Calcular valor bruto.
-* Calcular custos operacionais.
-* Calcular participação do sistema.
-* Calcular impostos.
-* Calcular valor líquido.
+Calcular automaticamente
 
-Indicadores desejados:
+- produção;
+- valores;
+- impostos;
+- repasses;
+- participação do sistema.
 
-* Total de laudos.
-* Receita gerada.
-* Receita líquida.
-* Receita por hospital.
-* Receita por médico.
-* Custos operacionais.
+Sem necessidade de preenchimento manual.
 
 ---
 
-# Filosofia de Segurança
+# Segurança
 
-O MedCore deve operar sob o princípio do menor privilégio.
+Princípios futuros
 
-Todo usuário deve possuir apenas os acessos estritamente necessários para executar suas funções.
-
-A segurança não deve depender da boa-fé do usuário.
-
-A aplicação deve validar permissões em:
-
-* Interface.
-* Views.
-* APIs.
-* Consultas ao banco de dados.
+- RBAC completo;
+- menor privilégio;
+- isolamento por hospital;
+- auditoria obrigatória;
+- rastreabilidade completa.
 
 ---
 
-# Direção de Crescimento
+# Perguntas para Validação com Usuários
 
-O MedCore deve evoluir para uma plataforma hospitalar completa contendo:
+Estas perguntas deverão ser respondidas durante entrevistas com médicos e gestores.
 
-* Gestão de DICOM.
-* Gestão de laudos.
-* Gestão de usuários.
-* Gestão hospitalar.
-* Gestão financeira.
-* Relatórios gerenciais.
-* Integrações médicas.
-* Inteligência Artificial aplicada ao diagnóstico.
-* Escalabilidade para múltiplas instituições.
+## Fluxo Médico
 
-Toda nova funcionalidade deve respeitar os pilares:
+- Quantas séries normalmente existem em uma TC?
+- O scroll é realmente o método mais utilizado?
+- Quais ferramentas são usadas diariamente?
+- O que mais incomoda no sistema atual?
+- Quais funcionalidades nunca são utilizadas?
 
-1. Segurança.
-2. Escalabilidade.
-3. Simplicidade operacional.
-4. Separação de responsabilidades.
-5. Privacidade dos dados.
+---
+
+## Fluxo Operacional
+
+- Como os exames chegam hoje?
+- Quem distribui exames?
+- Existe fila automática?
+- Existe SLA?
+- Como a produtividade é medida?
+
+---
+
+## Fluxo Financeiro
+
+- O pagamento é por exame?
+- Por laudo?
+- Por modalidade?
+- Existe repasse automático?
+- Existem regras diferentes por hospital?
+
+---
+
+# Filosofia de Crescimento
+
+O MedCore deve crescer por evolução incremental.
+
+Antes de criar qualquer novo módulo deve-se perguntar:
+
+- este problema pode ser resolvido evoluindo algo que já existe?
+- existe código reaproveitável?
+- existe validação com usuário real?
+- esta funcionalidade reduz trabalho?
+- vale o custo de manutenção?
+
+Se a resposta for "não", a funcionalidade permanece no LAB.
+
+---
+
+# Critério para Comercialização
+
+Antes da primeira demonstração comercial, o Workspace Médico deverá ser capaz de substituir o fluxo principal realizado em sistemas de radiologia tradicionais.
+
+Como referência mínima, o sistema deve oferecer:
+
+- navegação entre slices;
+- múltiplas séries reais;
+- histórico clínico integrado;
+- proteção contra perda de laudo;
+- ferramentas básicas de visualização e medição;
+- estabilidade em estudos grandes;
+- fluxo completo de laudagem.
+
+A partir desse ponto, o MedCore deixa de ser apenas um projeto de desenvolvimento e passa a ser um produto validável em ambiente hospitalar.
+
+---
+
+# Regra de Atualização
+
+Este documento registra:
+
+- ideias;
+- pesquisas;
+- hipóteses;
+- backlog;
+- experimentos;
+- arquitetura futura;
+- funcionalidades em estudo.
+
+Nada aqui representa comportamento oficial do sistema até ser promovido formalmente para o MEDCORE_CORE_CONTEXT.

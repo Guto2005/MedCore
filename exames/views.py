@@ -92,7 +92,12 @@ def workspace_laudo(request, id):
         exame=exame
     ).first()
 
-    if request.method == 'POST':
+    # Salvaguarda temporária da 1.5 (registrada no MEDCORE_LAB.md):
+    # exame FINALIZADO abre em modo consulta (sem edição), até a 1.6
+    # implementar o fluxo real de auditoria/versionamento/reedição controlada.
+    pode_editar = exame.status != 'FINALIZADO'
+
+    if request.method == 'POST' and pode_editar:
 
         form = LaudoForm(
             request.POST,
@@ -148,6 +153,8 @@ def workspace_laudo(request, id):
         {
             'exame': exame,
             'form': form,
+            'laudo': laudo,
+            'pode_editar': pode_editar,
             'modalidade': ds.get(
                 'Modality',
                 'N/A'
